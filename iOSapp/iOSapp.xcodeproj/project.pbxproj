@@ -27,6 +27,7 @@
 		3EF5E189175E00F80089ECA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF5E15F175E00F70089ECA6 /* CoreData.framework */; };
 		3EF5E191175E00F80089ECA6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EF5E18F175E00F80089ECA6 /* InfoPlist.strings */; };
 		3EF5E194175E00F80089ECA6 /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E193175E00F80089ECA6 /* iOSappTests.m */; };
+		3EF5E1A2175E4DD90089ECA6 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E1A1175E4DD90089ECA6 /* Person.m */; };
 		AEF84BA2BB504F3183B842E9 /* libPods-iOSappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DD111A1A4CB4D7C9B463339 /* libPods-iOSappTests.a */; };
 /* End PBXBuildFile section */
 
@@ -66,6 +67,8 @@
 		3EF5E18E175E00F80089ECA6 /* iOSappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSappTests-Info.plist"; sourceTree = "<group>"; };
 		3EF5E190175E00F80089ECA6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3EF5E193175E00F80089ECA6 /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
+		3EF5E1A0175E4DD90089ECA6 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		3EF5E1A1175E4DD90089ECA6 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		5667F06F7C1B4E77A36F6AB8 /* Pods-iOSappTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSappTests.xcconfig"; path = "Pods/Pods-iOSappTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		5DD111A1A4CB4D7C9B463339 /* libPods-iOSappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOSappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -140,6 +143,8 @@
 				3EF5E17A175E00F70089ECA6 /* RLCMasterViewController.m */,
 				3EF5E17C175E00F70089ECA6 /* RLCDetailViewController.h */,
 				3EF5E17D175E00F70089ECA6 /* RLCDetailViewController.m */,
+				3EF5E1A0175E4DD90089ECA6 /* Person.h */,
+				3EF5E1A1175E4DD90089ECA6 /* Person.m */,
 				3EF5E176175E00F70089ECA6 /* iOSapp.xcdatamodeld */,
 				3EF5E162175E00F70089ECA6 /* Supporting Files */,
 			);
@@ -324,6 +329,7 @@
 				3EF5E178175E00F70089ECA6 /* iOSapp.xcdatamodeld in Sources */,
 				3EF5E17B175E00F70089ECA6 /* RLCMasterViewController.m in Sources */,
 				3EF5E17E175E00F70089ECA6 /* RLCDetailViewController.m in Sources */,
+				3EF5E1A2175E4DD90089ECA6 /* Person.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
