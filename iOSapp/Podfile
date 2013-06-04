@@ -8,3 +8,7 @@ platform :ios
 target :iOSappTests, :exclusive => true do
    pod 'Kiwi'
 end
+
+target :iOSappTests, :exclusive => true do
+   pod 'MagicalRecord'
+end

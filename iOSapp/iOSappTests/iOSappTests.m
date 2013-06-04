@@ -7,16 +7,42 @@
 //
 
 #import "Kiwi.h"
+#import "CoreData+MagicalRecord.h"
 
-SPEC_BEGIN(MathSpec)
+SPEC_BEGIN(StorageSpec)
 
-describe(@"Math", ^{
-    it(@"is pretty cool", ^{
-        NSUInteger a = 16;
-        NSUInteger b = 26;
-        [[theValue(a + b) should] equal:theValue(42)];
+describe(@"PersonEntity", ^{
+    beforeEach(^{
+//        [MagicalRecord setupCoreDataStackWithInMemoryStore];
+        [MagicalRecord setupCoreDataStack];
     });
-    xit(@"This message should inform us about running test", nil);
+
+    afterEach(^{
+        [MagicalRecord cleanUp];
+    });
+
+    it(@"should create a new object", ^{
+        Person *person = [Person MR_createEntity];
+
+        [person shouldNotBeNil];
+        [person.name shouldBeNil];
+        [person.surname shouldBeNil];
+        [person.bio shouldBeNil];
+        [person.photo shouldBeNil];
+    });
+
+    it(@"should have preloaded data", ^{
+//        NSManagedObjectContext *testContext = [NSManagedObjectContext MR_context];
+        NSArray *people = [Person MR_findAll];
+        [[theValue(people count) should] equal:theValue(1)];
+
+        [[person.name should] equal:@"Name placeholder"];
+        [[person.surname should] equal:@"Surname placeholder"];
+        [[person.bio should] equal:@"Bio placeholder"];
+        [person.photo shouldNotBeNil];
+        [[person.photo should] beMemberOfClass:UIImage];
+    });
+
 });
 
 SPEC_END
