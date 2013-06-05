@@ -11,9 +11,9 @@
 
 @implementation Person
 
-@dynamic name;
-@dynamic surname;
 @dynamic bio;
+@dynamic name;
 @dynamic photo;
+@dynamic surname;
 
 @end

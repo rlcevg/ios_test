@@ -7,8 +7,5 @@ platform :ios
 # Add Kiwi as an exclusive dependency for the AmazingAppTests target
 target :iOSappTests, :exclusive => true do
    pod 'Kiwi'
-end
-
-target :iOSappTests, :exclusive => true do
    pod 'MagicalRecord'
 end

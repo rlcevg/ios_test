@@ -12,9 +12,9 @@
 
 @interface Person : NSManagedObject
 
-@property (nonatomic, retain) NSString * name;
-@property (nonatomic, retain) NSString * surname;
 @property (nonatomic, retain) NSString * bio;
+@property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) UIImage * photo;
+@property (nonatomic, retain) NSString * surname;
 
 @end

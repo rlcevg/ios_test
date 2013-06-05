@@ -8,6 +8,7 @@
 
 #import "Kiwi.h"
 #import "CoreData+MagicalRecord.h"
+#import "Person.h"
 
 SPEC_BEGIN(StorageSpec)
 
@@ -34,13 +35,14 @@ describe(@"PersonEntity", ^{
     it(@"should have preloaded data", ^{
 //        NSManagedObjectContext *testContext = [NSManagedObjectContext MR_context];
         NSArray *people = [Person MR_findAll];
-        [[theValue(people count) should] equal:theValue(1)];
+        [[theValue([people count]) should] equal:theValue(1)];
 
-        [[person.name should] equal:@"Name placeholder"];
-        [[person.surname should] equal:@"Surname placeholder"];
-        [[person.bio should] equal:@"Bio placeholder"];
+        Person *person = people[0];
+        [[person.name should] equal:@"Евгений"];
+        [[person.surname should] equal:@"surЕвгений"];
+        [[person.bio should] startWithString:@"По снегам ли зимой иль по хляби осенней"];
         [person.photo shouldNotBeNil];
-        [[person.photo should] beMemberOfClass:UIImage];
+        [[person.photo should] beMemberOfClass:[UIImage class]];
     });
 
 });
