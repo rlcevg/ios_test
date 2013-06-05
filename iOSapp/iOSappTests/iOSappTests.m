@@ -14,7 +14,6 @@ SPEC_BEGIN(StorageSpec)
 
 describe(@"PersonEntity", ^{
     beforeEach(^{
-//        [MagicalRecord setupCoreDataStackWithInMemoryStore];
         [MagicalRecord setupCoreDataStack];
     });
 
@@ -33,7 +32,6 @@ describe(@"PersonEntity", ^{
     });
 
     it(@"should have preloaded data", ^{
-//        NSManagedObjectContext *testContext = [NSManagedObjectContext MR_context];
         NSArray *people = [Person MR_findAll];
         [[theValue([people count]) should] equal:theValue(1)];
 
@@ -41,8 +39,13 @@ describe(@"PersonEntity", ^{
         [[person.name should] equal:@"Евгений"];
         [[person.surname should] equal:@"surЕвгений"];
         [[person.bio should] startWithString:@"По снегам ли зимой иль по хляби осенней"];
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"dd/mm/yyyy"];
+        NSDate *date = [dateFormat dateFromString:@"01/01/1970"];
+        [[person.birthdate should] equal:date];
         [person.photo shouldNotBeNil];
         [[person.photo should] beMemberOfClass:[UIImage class]];
+        [[theValue([person.contacts count]) should] equal:theValue(3)];
     });
 
 });

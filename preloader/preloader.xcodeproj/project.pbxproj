@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3E9FCC19175FB70D00E005E9 /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC14175FB70D00E005E9 /* iOSapp.xcdatamodeld */; };
 		3E9FCC21175FBD2500E005E9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC1C175FBD2500E005E9 /* Contact.m */; };
-		3E9FCC22175FBD2500E005E9 /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC1D175FBD2500E005E9 /* iOSapp.xcdatamodeld */; };
-		3E9FCC23175FBD2500E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC20175FBD2500E005E9 /* Person.m */; };
+		3E9FCC2D175FC7E800E005E9 /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */; };
+		3E9FCC2E175FC7E800E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC2C175FC7E800E005E9 /* Person.m */; };
 		3EF5E1B0175E50C70089ECA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF5E1AF175E50C70089ECA6 /* CoreData.framework */; };
 		3EF5E1B2175E50C70089ECA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF5E1B1175E50C70089ECA6 /* Foundation.framework */; };
 		3EF5E1B5175E50C70089ECA6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF5E1B4175E50C70089ECA6 /* main.m */; };
@@ -34,12 +33,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3E9FCC15175FB70D00E005E9 /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
 		3E9FCC1B175FBD2500E005E9 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		3E9FCC1C175FBD2500E005E9 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
-		3E9FCC1E175FBD2500E005E9 /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
-		3E9FCC1F175FBD2500E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		3E9FCC20175FBD2500E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
+		3E9FCC2B175FC7E800E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		3E9FCC2C175FC7E800E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3EF5E1AC175E50C70089ECA6 /* preloader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = preloader; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EF5E1AF175E50C70089ECA6 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		3EF5E1B1175E50C70089ECA6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -94,12 +92,11 @@
 		3EF5E1B3175E50C70089ECA6 /* preloader */ = {
 			isa = PBXGroup;
 			children = (
+				3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */,
+				3E9FCC2B175FC7E800E005E9 /* Person.h */,
+				3E9FCC2C175FC7E800E005E9 /* Person.m */,
 				3E9FCC1B175FBD2500E005E9 /* Contact.h */,
 				3E9FCC1C175FBD2500E005E9 /* Contact.m */,
-				3E9FCC1D175FBD2500E005E9 /* iOSapp.xcdatamodeld */,
-				3E9FCC1F175FBD2500E005E9 /* Person.h */,
-				3E9FCC20175FBD2500E005E9 /* Person.m */,
-				3E9FCC14175FB70D00E005E9 /* iOSapp.xcdatamodeld */,
 				3EF5E1E8175E5D980089ECA6 /* WithATowel.jpg */,
 				3EF5E1B4175E50C70089ECA6 /* main.m */,
 				3EF5E1B6175E50C70089ECA6 /* Supporting Files */,
@@ -168,10 +165,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EF5E1B5175E50C70089ECA6 /* main.m in Sources */,
-				3E9FCC19175FB70D00E005E9 /* iOSapp.xcdatamodeld in Sources */,
 				3E9FCC21175FBD2500E005E9 /* Contact.m in Sources */,
-				3E9FCC22175FBD2500E005E9 /* iOSapp.xcdatamodeld in Sources */,
-				3E9FCC23175FBD2500E005E9 /* Person.m in Sources */,
+				3E9FCC2D175FC7E800E005E9 /* iOSapp.xcdatamodeld in Sources */,
+				3E9FCC2E175FC7E800E005E9 /* Person.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,23 +275,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3E9FCC14175FB70D00E005E9 /* iOSapp.xcdatamodeld */ = {
+		3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3E9FCC15175FB70D00E005E9 /* iOSapp.xcdatamodel */,
+				3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */,
 			);
-			currentVersion = 3E9FCC15175FB70D00E005E9 /* iOSapp.xcdatamodel */;
-			name = iOSapp.xcdatamodeld;
-			path = ../iOSapp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		3E9FCC1D175FBD2500E005E9 /* iOSapp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				3E9FCC1E175FBD2500E005E9 /* iOSapp.xcdatamodel */,
-			);
-			currentVersion = 3E9FCC1E175FBD2500E005E9 /* iOSapp.xcdatamodel */;
+			currentVersion = 3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */;
 			path = iOSapp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

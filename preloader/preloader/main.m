@@ -74,7 +74,12 @@ int main(int argc, const char * argv[])
             person.name = [obj objectForKey:@"name"];
             person.surname = obj[@"surname"];
             person.bio = obj[@"bio"];
-            person.birthdate = [NSDate dateWithString:obj[@"birthdate"]];
+
+            NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+            [dateFormat setDateFormat:@"dd/mm/yyyy"];
+            NSDate *date = [dateFormat dateFromString:obj[@"birthdate"]];
+            person.birthdate = date;
+
             NSString *photo = obj[@"photo"];
             person.photo = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:[photo stringByDeletingPathExtension] ofType:@"jpg"]];
             NSArray *obj_contacts = obj[@"contacts"];

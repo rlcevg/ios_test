@@ -15,10 +15,10 @@
 @interface Person : NSManagedObject
 
 @property (nonatomic, retain) NSString *bio;
+@property (nonatomic, retain) NSDate *birthdate;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, retain) NSImage *photo;
 @property (nonatomic, retain) NSString *surname;
-@property (nonatomic, retain) NSDate *birthdate;
 @property (nonatomic, retain) NSSet *contacts;
 @end
 

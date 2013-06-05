@@ -20,15 +20,21 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        self.delegate = self;
     }
     return self;
+}
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.delegate = self;
+    [self.viewControllers[0] prepareData:self.person];
 }
 
 - (void)didReceiveMemoryWarning

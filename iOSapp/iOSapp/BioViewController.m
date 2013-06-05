@@ -41,7 +41,7 @@
 - (void)configureView
 {
     if (self.person) {
-        self.bioLabel.text = self.person.bio;
+        self.bioText.text = self.person.bio;
     }
 }
 
