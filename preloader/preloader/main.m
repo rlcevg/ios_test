@@ -7,6 +7,7 @@
 //
 
 #import "Person.h"
+#import "Contact.h"
 
 
 static NSManagedObjectModel *managedObjectModel()
@@ -73,8 +74,18 @@ int main(int argc, const char * argv[])
             person.name = [obj objectForKey:@"name"];
             person.surname = obj[@"surname"];
             person.bio = obj[@"bio"];
+            person.birthdate = [NSDate dateWithString:obj[@"birthdate"]];
             NSString *photo = obj[@"photo"];
             person.photo = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForResource:[photo stringByDeletingPathExtension] ofType:@"jpg"]];
+            NSArray *obj_contacts = obj[@"contacts"];
+            for (NSDictionary *obj_contact in obj_contacts) {
+                Contact *contact = [NSEntityDescription
+                                    insertNewObjectForEntityForName:@"Contact"
+                                    inManagedObjectContext:context];
+                contact.type = obj_contact[@"type"];
+                contact.contact = obj_contact[@"contact"];
+                [person addContactsObject:contact];
+            }
         }];
 
         // Save the managed object context

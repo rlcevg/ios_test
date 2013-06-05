@@ -7,8 +7,10 @@
 //
 
 #import "RLCAppDelegate.h"
-
-#import "RLCMasterViewController.h"
+#import "DataTabBarController.h"
+#import "ProfileViewController.h"
+#import "BioViewController.h"
+#import "ContactsViewController.h"
 
 @implementation RLCAppDelegate
 
@@ -19,9 +21,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
-    RLCMasterViewController *controller = (RLCMasterViewController *)navigationController.topViewController;
-    controller.managedObjectContext = self.managedObjectContext;
+    DataTabBarController *tabController = (DataTabBarController *)self.window.rootViewController;
+    tabController.managedObjectContext = self.managedObjectContext;
     return YES;
 }
 							
@@ -107,14 +108,14 @@
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
 
-    if (![[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
-        NSURL *preloadURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"iOSapp" ofType:@"sqlite"]];
-        NSError* err = nil;
-
-        if (![[NSFileManager defaultManager] copyItemAtURL:preloadURL toURL:storeURL error:&err]) {
-            NSLog(@"Oops, could not copy preloaded data");
-        }
-    }
+//    if (![[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+//        NSURL *preloadURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"iOSapp" ofType:@"sqlite"]];
+//        NSError* err = nil;
+//
+//        if (![[NSFileManager defaultManager] copyItemAtURL:preloadURL toURL:storeURL error:&err]) {
+//            NSLog(@"Oops, could not copy preloaded data");
+//        }
+//    }
 
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];

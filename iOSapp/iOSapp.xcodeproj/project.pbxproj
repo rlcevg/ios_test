@@ -19,15 +19,18 @@
 		3EB77597175E7C0B00D0DD6F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EB77596175E7C0B00D0DD6F /* Default-568h@2x.png */; };
 		3EB7759A175E7C0B00D0DD6F /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EB77598175E7C0B00D0DD6F /* MainStoryboard.storyboard */; };
 		3EB7759D175E7C0B00D0DD6F /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */; };
-		3EB775A0175E7C0B00D0DD6F /* RLCMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7759F175E7C0B00D0DD6F /* RLCMasterViewController.m */; };
+		3EB775A0175E7C0B00D0DD6F /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */; };
 		3EB775AB175E7C0B00D0DD6F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB775AA175E7C0B00D0DD6F /* SenTestingKit.framework */; };
 		3EB775AC175E7C0B00D0DD6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB7757E175E7C0A00D0DD6F /* UIKit.framework */; };
 		3EB775AD175E7C0B00D0DD6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77580175E7C0A00D0DD6F /* Foundation.framework */; };
 		3EB775AE175E7C0B00D0DD6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77584175E7C0A00D0DD6F /* CoreData.framework */; };
 		3EB775B6175E7C0B00D0DD6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775B4175E7C0B00D0DD6F /* InfoPlist.strings */; };
 		3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */; };
-		3EB775C4175E7DCF00D0DD6F /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775C3175E7DCF00D0DD6F /* Person.m */; };
-		3EB775C6175E7E6200D0DD6F /* iOSapp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775C5175E7E6200D0DD6F /* iOSapp.sqlite */; };
+		3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110B175F3EC600D446DD /* ProfileViewController.m */; };
+		3EE8110F175F3F6E00D446DD /* BioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110E175F3F6E00D446DD /* BioViewController.m */; };
+		3EE81116175F535C00D446DD /* DataTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE81115175F535C00D446DD /* DataTabBarController.m */; };
+		3EE8111C175F60C900D446DD /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8111B175F60C900D446DD /* Contact.m */; };
+		3EE8111F175F652B00D446DD /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8111E175F652A00D446DD /* Person.m */; };
 		781659F09D10407DB784E018 /* libPods-iOSappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */; };
 /* End PBXBuildFile section */
 
@@ -59,16 +62,24 @@
 		3EB77596175E7C0B00D0DD6F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3EB77599175E7C0B00D0DD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		3EB7759C175E7C0B00D0DD6F /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
-		3EB7759E175E7C0B00D0DD6F /* RLCMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RLCMasterViewController.h; sourceTree = "<group>"; };
-		3EB7759F175E7C0B00D0DD6F /* RLCMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RLCMasterViewController.m; sourceTree = "<group>"; };
+		3EB7759E175E7C0B00D0DD6F /* ContactsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
+		3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		3EB775A9175E7C0B00D0DD6F /* iOSappTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSappTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB775AA175E7C0B00D0DD6F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		3EB775B3175E7C0B00D0DD6F /* iOSappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSappTests-Info.plist"; sourceTree = "<group>"; };
 		3EB775B5175E7C0B00D0DD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
-		3EB775C2175E7DCF00D0DD6F /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		3EB775C3175E7DCF00D0DD6F /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		3EB775C5175E7E6200D0DD6F /* iOSapp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iOSapp.sqlite; sourceTree = "<group>"; };
+		3EE8110A175F3EC600D446DD /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
+		3EE8110B175F3EC600D446DD /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
+		3EE8110D175F3F6E00D446DD /* BioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioViewController.h; sourceTree = "<group>"; };
+		3EE8110E175F3F6E00D446DD /* BioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BioViewController.m; sourceTree = "<group>"; };
+		3EE81113175F4CF200D446DD /* DataTab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTab.h; sourceTree = "<group>"; };
+		3EE81114175F535C00D446DD /* DataTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataTabBarController.h; sourceTree = "<group>"; };
+		3EE81115175F535C00D446DD /* DataTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTabBarController.m; sourceTree = "<group>"; };
+		3EE8111A175F60C900D446DD /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
+		3EE8111B175F60C900D446DD /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		3EE8111D175F652A00D446DD /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		3EE8111E175F652A00D446DD /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOSappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -135,16 +146,24 @@
 		3EB77586175E7C0A00D0DD6F /* iOSapp */ = {
 			isa = PBXGroup;
 			children = (
-				3EB775C5175E7E6200D0DD6F /* iOSapp.sqlite */,
 				3EB7758F175E7C0A00D0DD6F /* RLCAppDelegate.h */,
 				3EB77590175E7C0A00D0DD6F /* RLCAppDelegate.m */,
 				3EB77598175E7C0B00D0DD6F /* MainStoryboard.storyboard */,
-				3EB7759E175E7C0B00D0DD6F /* RLCMasterViewController.h */,
-				3EB7759F175E7C0B00D0DD6F /* RLCMasterViewController.m */,
+				3EE8110A175F3EC600D446DD /* ProfileViewController.h */,
+				3EE8110B175F3EC600D446DD /* ProfileViewController.m */,
+				3EB7759E175E7C0B00D0DD6F /* ContactsViewController.h */,
+				3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */,
+				3EE8110D175F3F6E00D446DD /* BioViewController.h */,
+				3EE8110E175F3F6E00D446DD /* BioViewController.m */,
+				3EE81113175F4CF200D446DD /* DataTab.h */,
 				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
-				3EB775C2175E7DCF00D0DD6F /* Person.h */,
-				3EB775C3175E7DCF00D0DD6F /* Person.m */,
+				3EE8111D175F652A00D446DD /* Person.h */,
+				3EE8111E175F652A00D446DD /* Person.m */,
+				3EE8111A175F60C900D446DD /* Contact.h */,
+				3EE8111B175F60C900D446DD /* Contact.m */,
 				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
+				3EE81114175F535C00D446DD /* DataTabBarController.h */,
+				3EE81115175F535C00D446DD /* DataTabBarController.m */,
 			);
 			path = iOSapp;
 			sourceTree = "<group>";
@@ -260,7 +279,6 @@
 				3EB77595175E7C0B00D0DD6F /* Default@2x.png in Resources */,
 				3EB77597175E7C0B00D0DD6F /* Default-568h@2x.png in Resources */,
 				3EB7759A175E7C0B00D0DD6F /* MainStoryboard.storyboard in Resources */,
-				3EB775C6175E7E6200D0DD6F /* iOSapp.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,8 +344,12 @@
 				3EB7758D175E7C0A00D0DD6F /* main.m in Sources */,
 				3EB77591175E7C0A00D0DD6F /* RLCAppDelegate.m in Sources */,
 				3EB7759D175E7C0B00D0DD6F /* iOSapp.xcdatamodeld in Sources */,
-				3EB775A0175E7C0B00D0DD6F /* RLCMasterViewController.m in Sources */,
-				3EB775C4175E7DCF00D0DD6F /* Person.m in Sources */,
+				3EB775A0175E7C0B00D0DD6F /* ContactsViewController.m in Sources */,
+				3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */,
+				3EE8110F175F3F6E00D446DD /* BioViewController.m in Sources */,
+				3EE81116175F535C00D446DD /* DataTabBarController.m in Sources */,
+				3EE8111C175F60C900D446DD /* Contact.m in Sources */,
+				3EE8111F175F652B00D446DD /* Person.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
