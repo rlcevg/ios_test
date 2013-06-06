@@ -19,7 +19,7 @@
 @dynamic surname;
 @dynamic contacts;
 
-#if IPHONEOS_DEPLOYMENT_TARGET || TARGET_IPHONE_SIMULATOR
+#if TARGET_OS_IPHONE
 
 - (void)setPhoto:(UIImage *)photo
 {
