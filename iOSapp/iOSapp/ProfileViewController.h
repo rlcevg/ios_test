@@ -15,7 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *surnameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *birthdateLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *titleName;
-@property (weak, nonatomic) IBOutlet UILabel *titleSurname;
-@property (weak, nonatomic) IBOutlet UILabel *titleBirthdate;
+@property (weak, nonatomic) IBOutlet UIView *textContainer;
 @end

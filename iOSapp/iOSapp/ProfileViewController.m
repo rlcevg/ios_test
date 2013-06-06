@@ -50,32 +50,10 @@
 {
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
         self.photoView.center = CGPointMake(160.0f, 84.0f);
-        self.titleName.frame = CGRectMake(20.0f, 167.0f, 280.0f, 21.0f);
-        self.titleName.textAlignment = NSTextAlignmentCenter;
-        self.nameLabel.frame = CGRectMake(20.0f, 196.0f, 280.0f, 21.0f);
-        self.nameLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleSurname.frame = CGRectMake(20.0f, 240.0f, 280.0f, 21.0f);
-        self.titleSurname.textAlignment = NSTextAlignmentCenter;
-        self.surnameLabel.frame = CGRectMake(20.0f, 269.0f, 280.0f, 21.0f);
-        self.surnameLabel.textAlignment = NSTextAlignmentCenter;
-        self.titleBirthdate.frame = CGRectMake(20.0f, 319.0f, 280.0f, 21.0f);
-        self.titleBirthdate.textAlignment = NSTextAlignmentCenter;
-        self.birthdateLabel.frame = CGRectMake(20.0f, 348.0f, 280.0f, 21.0f);
-        self.birthdateLabel.textAlignment = NSTextAlignmentCenter;
+        self.textContainer.center = CGPointMake(160.0f, 273.0f);
     } else {
         self.photoView.center = CGPointMake(84.0f, 84.0f);
-        self.titleName.frame = CGRectMake(156.0f, 20.0f, 52.0f, 18.0f);
-        self.titleName.textAlignment = NSTextAlignmentLeft;
-        self.nameLabel.frame = CGRectMake(156.0f, 46.0f, 304.0f, 21.0f);
-        self.nameLabel.textAlignment = NSTextAlignmentLeft;
-        self.titleSurname.frame = CGRectMake(156.0f, 75.0f, 78.0f, 18.0f);
-        self.titleSurname.textAlignment = NSTextAlignmentLeft;
-        self.surnameLabel.frame = CGRectMake(156.0f, 101.0f, 304.0f, 21.0f);
-        self.surnameLabel.textAlignment = NSTextAlignmentLeft;
-        self.titleBirthdate.frame = CGRectMake(156.0f, 130.0f, 74.0f, 18.0f);
-        self.titleBirthdate.textAlignment = NSTextAlignmentLeft;
-        self.birthdateLabel.frame = CGRectMake(156.0f, 156.0f, 304.0f, 21.0f);
-        self.birthdateLabel.textAlignment = NSTextAlignmentLeft;
+        self.textContainer.center = CGPointMake(296.0f, 123.0f);
     }
 }
 
@@ -90,9 +68,16 @@
 - (void)configureView
 {
     if (self.person) {
+        static NSDateFormatter *dateFormatter = nil;
+        if (dateFormatter == nil) {
+            dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+        }
+
         self.nameLabel.text = self.person.name;
         self.surnameLabel.text = self.person.surname;
-        self.birthdateLabel.text = [self.person.birthdate description];
+        self.birthdateLabel.text = [dateFormatter stringFromDate:self.person.birthdate];
         self.photoView.image = self.person.photo;
     }
 }

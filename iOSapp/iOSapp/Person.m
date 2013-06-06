@@ -19,7 +19,7 @@
 @dynamic surname;
 @dynamic contacts;
 
-//#ifdef IPHONEOS_DEPLOYMENT_TARGET
+#if IPHONEOS_DEPLOYMENT_TARGET || TARGET_IPHONE_SIMULATOR
 
 - (void)setPhoto:(UIImage *)photo
 {
@@ -37,25 +37,25 @@
     return image;
 }
 
-//#else
-//
-//- (void)setPhoto:(NSImage *)photo
-//{
-//    [self willChangeValueForKey:@"photo"];
-//    NSBitmapImageRep *bits = [[photo representations] objectAtIndex:0];
-//    NSData *data = [bits representationUsingType:NSPNGFileType properties:nil];
-//    [self setPrimitiveValue:data forKey:@"photo"];
-//    [self didChangeValueForKey:@"photo"];
-//}
-//
-//- (NSImage *)photo
-//{
-//    [self willAccessValueForKey:@"photo"];
-//    NSImage *image = [[NSImage alloc] initWithData:[self primitiveValueForKey:@"photo"]];
-//    [self didAccessValueForKey:@"photo"];
-//    return [image autorelease];
-//}
-//
-//#endif
+#else
+
+- (void)setPhoto:(NSImage *)photo
+{
+    [self willChangeValueForKey:@"photo"];
+    NSBitmapImageRep *bits = [[photo representations] objectAtIndex:0];
+    NSData *data = [bits representationUsingType:NSPNGFileType properties:nil];
+    [self setPrimitiveValue:data forKey:@"photo"];
+    [self didChangeValueForKey:@"photo"];
+}
+
+- (NSImage *)photo
+{
+    [self willAccessValueForKey:@"photo"];
+    NSImage *image = [[NSImage alloc] initWithData:[self primitiveValueForKey:@"photo"]];
+    [self didAccessValueForKey:@"photo"];
+    return [image autorelease];
+}
+
+#endif
 
 @end

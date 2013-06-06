@@ -7,6 +7,7 @@
 //
 
 #import "BioViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BioViewController ()
 @property (strong, nonatomic) Person *person;
@@ -25,11 +26,19 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     [self configureView];
+    self.bioText.layer.borderWidth = 2.0f;
+    self.bioText.layer.borderColor = [[UIColor grayColor] CGColor];
+    self.bioText.layer.cornerRadius = 8;
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,6 +69,13 @@
 - (void)prepareData:(Person *)person
 {
     self.person = person;
+}
+
+#pragma mark - UITextViewDelegate protocol
+
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView;
+{
+    return NO;
 }
 
 @end

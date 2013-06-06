@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DataTab.h"
 
-@interface BioViewController : UIViewController <DataTab>
+@interface BioViewController : UIViewController <UITextViewDelegate, DataTab>
 @property (weak, nonatomic) IBOutlet UITextView *bioText;
 
 @end

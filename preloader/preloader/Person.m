@@ -19,26 +19,26 @@
 @dynamic surname;
 @dynamic contacts;
 
-//#ifdef IPHONEOS_DEPLOYMENT_TARGET
-//
-//- (void)setPhoto:(UIImage *)photo
-//{
-//    [self willChangeValueForKey:@"photo"];
-//    NSData *data = UIImagePNGRepresentation(photo);
-//    [self setPrimitiveValue:data forKey:@"photo"];
-//    [self didChangeValueForKey:@"photo"];
-//}
-//
-//- (UIImage *)photo
-//{
-//    [self willAccessValueForKey:@"photo"];
-//    UIImage *image = [UIImage imageWithData:[self primitiveValueForKey:@"photo"]];
-//    [self didAccessValueForKey:@"photo"];
-//    return image;
-//}
-//
-//#else
-//
+#if IPHONEOS_DEPLOYMENT_TARGET || TARGET_IPHONE_SIMULATOR
+
+- (void)setPhoto:(UIImage *)photo
+{
+    [self willChangeValueForKey:@"photo"];
+    NSData *data = UIImagePNGRepresentation(photo);
+    [self setPrimitiveValue:data forKey:@"photo"];
+    [self didChangeValueForKey:@"photo"];
+}
+
+- (UIImage *)photo
+{
+    [self willAccessValueForKey:@"photo"];
+    UIImage *image = [UIImage imageWithData:[self primitiveValueForKey:@"photo"]];
+    [self didAccessValueForKey:@"photo"];
+    return image;
+}
+
+#else
+
 - (void)setPhoto:(NSImage *)photo
 {
     [self willChangeValueForKey:@"photo"];
@@ -55,7 +55,7 @@
     [self didAccessValueForKey:@"photo"];
     return image;
 }
-//
-//#endif
+
+#endif
 
 @end
