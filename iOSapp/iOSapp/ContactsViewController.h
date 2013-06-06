@@ -11,6 +11,4 @@
 
 @interface ContactsViewController : UITableViewController <DataTab>
 
-@property (strong, nonatomic) NSArray *contacts;
-
 @end

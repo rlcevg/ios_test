@@ -10,7 +10,10 @@
 #import "Contact.h"
 
 @interface ContactsViewController ()
+
+@property (strong, nonatomic) NSArray *contacts;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
 @end
 
 @implementation ContactsViewController

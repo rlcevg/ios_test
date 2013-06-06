@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 
 @interface ProfileViewController ()
+
 @property (strong, nonatomic) Person *person;
 - (void)configureView;
 

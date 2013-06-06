@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface BioViewController ()
+
 @property (strong, nonatomic) Person *person;
 - (void)configureView;
 
