@@ -32,6 +32,7 @@
 		3EE8110F175F3F6E00D446DD /* BioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110E175F3F6E00D446DD /* BioViewController.m */; };
 		3EE81116175F535C00D446DD /* DataTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE81115175F535C00D446DD /* DataTabBarController.m */; };
 		3EE8111C175F60C900D446DD /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8111B175F60C900D446DD /* Contact.m */; };
+		3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */; };
 		781659F09D10407DB784E018 /* libPods-iOSappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +83,7 @@
 		3EE81115175F535C00D446DD /* DataTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataTabBarController.m; sourceTree = "<group>"; };
 		3EE8111A175F60C900D446DD /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		3EE8111B175F60C900D446DD /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
+		3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookAuthTests.m; sourceTree = "<group>"; };
 		6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOSappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 			children = (
 				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EB775B2175E7C0B00D0DD6F /* Supporting Files */,
+				3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */,
 			);
 			path = iOSappTests;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */,
+				3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
