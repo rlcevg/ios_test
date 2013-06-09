@@ -19,6 +19,7 @@
 @property (nonatomic, retain) UIImage *photo;
 @property (nonatomic, retain) NSString *surname;
 @property (nonatomic, retain) NSSet *contacts;
+
 @end
 
 @interface Person (CoreDataGeneratedAccessors)

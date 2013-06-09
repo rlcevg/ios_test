@@ -51,10 +51,12 @@
 {
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
         self.photoView.center = CGPointMake(160.0f, 84.0f);
-        self.textContainer.center = CGPointMake(160.0f, 273.0f);
+        self.textContainer.center = CGPointMake(160.0f, 239.0f);
+        self.fbLoginView.center = CGPointMake(160.0f, 368.0f);
     } else {
-        self.photoView.center = CGPointMake(84.0f, 84.0f);
-        self.textContainer.center = CGPointMake(296.0f, 123.0f);
+        self.photoView.center = CGPointMake(95.0f, 84.0f);
+        self.textContainer.center = CGPointMake(320.0f, 103.0f);
+        self.fbLoginView.center = CGPointMake(96.0f, 210.0f);
     }
 }
 
