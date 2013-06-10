@@ -19,5 +19,10 @@
 
 @property (weak, nonatomic) IBOutlet UIView *textContainer;
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;
+@property (weak, nonatomic) IBOutlet UIView *photoContainer;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+
+- (void)populateUserDetails;
+- (void)populateUserPhoto;
 
 @end

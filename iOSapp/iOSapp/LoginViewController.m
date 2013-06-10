@@ -12,6 +12,8 @@
 
 @interface LoginViewController ()
 
+@property (assign, nonatomic, getter=isNewLogin) BOOL newLogin;
+
 @end
 
 @implementation LoginViewController
@@ -29,6 +31,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    self.fbLoginView.readPermissions = @[@"user_birthday", @"user_about_me", @"email"];
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,7 +44,10 @@
 {
     if ([[segue identifier] isEqualToString:@"SegueToData"]) {
         RLCAppDelegate *appDelegate = (RLCAppDelegate *)[UIApplication sharedApplication].delegate;
-        [appDelegate configureDataTabBar:[segue destinationViewController]];
+        DataTabBarController *controller = [segue destinationViewController];
+        controller.managedObjectContext = appDelegate.managedObjectContext;
+        if (self.newLogin)
+            [controller reloadData];
     }
 }
 
@@ -49,6 +55,17 @@
 
 - (void)loginViewShowingLoggedInUser:(FBLoginView *)loginView
 {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSString *accessToken = FBSession.activeSession.accessTokenData.accessToken;
+    if (![defaults boolForKey:@"isLoggedIn"]) {
+        [defaults setObject:accessToken forKey:@"accessToken"];
+        [defaults setBool:YES forKey:@"isLoggedIn"];
+        [defaults synchronize];
+        self.newLogin = YES;
+    } else {
+        self.newLogin = NO;
+    }
+
     // Upon login, transition to the main UI.
     [self performSegueWithIdentifier:@"SegueToData" sender:self];
 }
@@ -94,7 +111,8 @@
     }
 }
 
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView {
+- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView
+{
     // Facebook SDK * login flow *
     // It is important to always handle session closure because it can happen
     // externally; for example, if the current session's access token becomes
@@ -102,7 +120,12 @@
     [self logOut];
 }
 
-- (void)logOut {
+- (void)logOut
+{
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setBool:NO forKey:@"isLoggedIn"];
+    [defaults synchronize];
+
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 

@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@class DataTabBarController;
-
 @interface RLCAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
@@ -20,6 +18,5 @@
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
-- (void)configureDataTabBar:(DataTabBarController *)controller;
 
 @end

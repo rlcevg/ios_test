@@ -34,6 +34,7 @@
 		3EB775AE175E7C0B00D0DD6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77584175E7C0A00D0DD6F /* CoreData.framework */; };
 		3EB775B6175E7C0B00D0DD6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775B4175E7C0B00D0DD6F /* InfoPlist.strings */; };
 		3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */; };
+		3EDF09181766622D003E2BEA /* RLCProfilePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */; };
 		3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110B175F3EC600D446DD /* ProfileViewController.m */; };
 		3EE8110F175F3F6E00D446DD /* BioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110E175F3F6E00D446DD /* BioViewController.m */; };
 		3EE81116175F535C00D446DD /* DataTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE81115175F535C00D446DD /* DataTabBarController.m */; };
@@ -88,6 +89,8 @@
 		3EB775B3175E7C0B00D0DD6F /* iOSappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSappTests-Info.plist"; sourceTree = "<group>"; };
 		3EB775B5175E7C0B00D0DD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
+		3EDF09161766622D003E2BEA /* RLCProfilePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCProfilePictureView.h; sourceTree = "<group>"; };
+		3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCProfilePictureView.m; sourceTree = "<group>"; };
 		3EE8110A175F3EC600D446DD /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		3EE8110B175F3EC600D446DD /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		3EE8110D175F3F6E00D446DD /* BioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BioViewController.h; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				3EE81115175F535C00D446DD /* DataTabBarController.m */,
 				3EF6F9CC17632ECE005A5185 /* LoginViewController.h */,
 				3EF6F9CD17632ECE005A5185 /* LoginViewController.m */,
+				3EDF09161766622D003E2BEA /* RLCProfilePictureView.h */,
+				3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */,
 			);
 			path = iOSapp;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 				3EE8111C175F60C900D446DD /* Contact.m in Sources */,
 				3E9FCC28175FC20500E005E9 /* Person.m in Sources */,
 				3EF6F9CE17632ECE005A5185 /* LoginViewController.m in Sources */,
+				3EDF09181766622D003E2BEA /* RLCProfilePictureView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

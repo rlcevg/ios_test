@@ -30,7 +30,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    [self configureView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -39,7 +38,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Orientation behavior
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self configureView];
+}
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -47,14 +49,16 @@
     [self updateViewLayout];
 }
 
+#pragma mark - Orientation behavior
+
 - (void)updateViewLayout
 {
     if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-        self.photoView.center = CGPointMake(160.0f, 84.0f);
+        self.photoContainer.center = CGPointMake(160.0f, 84.0f);
         self.textContainer.center = CGPointMake(160.0f, 239.0f);
         self.fbLoginView.center = CGPointMake(160.0f, 368.0f);
     } else {
-        self.photoView.center = CGPointMake(95.0f, 84.0f);
+        self.photoContainer.center = CGPointMake(95.0f, 84.0f);
         self.textContainer.center = CGPointMake(320.0f, 103.0f);
         self.fbLoginView.center = CGPointMake(96.0f, 210.0f);
     }
@@ -71,18 +75,31 @@
 - (void)configureView
 {
     if (self.person) {
-        static NSDateFormatter *dateFormatter = nil;
-        if (dateFormatter == nil) {
-            dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
-            [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-        }
-
-        self.nameLabel.text = self.person.name;
-        self.surnameLabel.text = self.person.surname;
-        self.birthdateLabel.text = [dateFormatter stringFromDate:self.person.birthdate];
-        self.photoView.image = self.person.photo;
+        [self populateUserDetails];
+        [self populateUserPhoto];
+    } else {
+        [self.spinner startAnimating];
     }
+}
+
+- (void)populateUserDetails
+{
+    static NSDateFormatter *dateFormatter = nil;
+    if (dateFormatter == nil) {
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+        [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    }
+
+    self.nameLabel.text = self.person.name;
+    self.surnameLabel.text = self.person.surname;
+    self.birthdateLabel.text = [dateFormatter stringFromDate:self.person.birthdate];
+}
+
+- (void)populateUserPhoto
+{
+    self.photoView.image = self.person.photo;
+    [self.spinner stopAnimating];
 }
 
 - (void)setPerson:(Person *)person
