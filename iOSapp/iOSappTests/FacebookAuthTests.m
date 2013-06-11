@@ -8,7 +8,7 @@
 
 #import "Kiwi.h"
 #import "LoginViewController.h"
-#import <Face
+#import <FacebookSDK/FacebookSDK.h>
 
 SPEC_BEGIN(LoginViewControllerTests)
 
@@ -29,49 +29,27 @@ describe(@"LoginViewController", ^{
             [viewController shouldNotBeNil];
         });
 
-        context(@"should have a magic login button", ^{
-            it(@"exists and is called fbLoginView", ^{
-                [[viewController.fbLoginView should] beKindOfClass:[FBLoginView class]];
-            });
+        it(@"should be first visible view", ^{
+            UINavigationController *navController = [storyBoard instantiateInitialViewController];
+            [[navController.topViewController should] beMemberOfClass:[viewController class]];
+            [[navController.visibleViewController should] equal:navController.topViewController];
         });
 
-        context(@"should have a button that", ^{
-            it(@"exists and called signinButton", ^{
-                [[viewController.signinButton should] beKindOfClass:[UIButton class]];
+        context(@"should have a magic login button", ^{
+            it(@"exists and is called fbLoginView", ^{
+                NSLog(@"a");
+                [[viewController.fbLoginView should] beKindOfClass:[FBLoginView class]];
             });
 
-            it(@"has a target of the view controller and an action of signin:", ^{
-                NSArray *actions = [viewController.signinButton actionsForTarget:viewController forControlEvent:UIControlEventTouchUpInside];
-                [actions shouldNotBeNil];
-                [[theValue([actions indexOfObject:@"signin:"]) shouldNot] equal:theValue(NSNotFound)];
-            });
-		});
-
-        context(@"should have methods for the signin button that", ^{
-            it(@"responds to signin", ^{
-                [[viewController should] respondsToSelector:@selector(signin:)];
+            it(@"has a delegate and responds to login methods", ^{
+                id delegate = viewController.fbLoginView.delegate;
+                [delegate shouldNotBeNil];
+                [[delegate should] equal:viewController];
+                [[delegate should] respondToSelector:@selector(loginViewShowingLoggedInUser:)];
+                [[delegate should] respondToSelector:@selector(loginView:handleError:)];
             });
 
-            it(@"saves username, password, authkey and expiry into NSUserDefaults", ^{
-
-				[[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"userName"];
-				[[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"password"];
-                [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"authKey"];
-                [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:@"Expiry"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-
-                viewController.userName.text = @"ios-testuser";
-                viewController.password.text = @"xxx";
-                [viewController signin:viewController.signinButton];
-
-				// check also authKey and Expiry
-                [[theValue([[NSUserDefaults standardUserDefaults] stringForKey:@"userName"]) should] equal:theValue(@"ios-testuser")];
-                [[theValue([[NSUserDefaults standardUserDefaults] stringForKey:@"password"]) should] equal:theValue(@"xxx")];
-                [[theValue([[[NSUserDefaults standardUserDefaults] stringForKey:@"authKey"] length]) shouldNot] equal:theValue(0)];
-				[theValue([[NSUserDefaults standardUserDefaults] objectForKey:@"Expiry"]) shouldNotBeNil];
-
-            });
-
+            xit(@"is a black box and we dont want to get into FBLoginView implementation", NULL);
         });
     });
 });

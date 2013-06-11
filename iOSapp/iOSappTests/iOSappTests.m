@@ -20,15 +20,8 @@
 SPEC_BEGIN(StorageSpec)
 
 describe(@"PersonEntity", ^{
-    beforeEach(^{
-        [MagicalRecord setupCoreDataStack];
-    });
-
-    afterEach(^{
-        [MagicalRecord cleanUp];
-    });
-
     it(@"should create a new object", ^{
+        [MagicalRecord setupCoreDataStackWithInMemoryStore];
         Person *person = [Person MR_createEntity];
 
         [person shouldNotBeNil];
@@ -36,10 +29,24 @@ describe(@"PersonEntity", ^{
         [person.surname shouldBeNil];
         [person.bio shouldBeNil];
         [person.photo shouldBeNil];
+        [person.contacts shouldNotBeNil];
+        [MagicalRecord cleanUp];
     });
 
     it(@"should have preloaded data", ^{
-        NSArray *people = [Person MR_findAll];
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+
+        // Remove iOSapp.sqlite
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+
+        // Get Person data
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:appDelegate.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSArray *people = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
         [[theValue([people count]) should] equal:theValue(1)];
 
         Person *person = people[0];
@@ -54,7 +61,6 @@ describe(@"PersonEntity", ^{
         [[person.photo should] beMemberOfClass:[UIImage class]];
         [[theValue([person.contacts count]) should] equal:theValue(3)];
     });
-
 });
 
 SPEC_END
@@ -68,7 +74,7 @@ describe(@"DataTabBarController", ^{
     __block DataTabBarController *dataTab;
 
     beforeEach(^{
-        dataTab = (DataTabBarController *)[storyboard instantiateInitialViewController];
+        dataTab = (DataTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"DataTabBar"];
     });
 
     afterEach(^{
@@ -153,8 +159,9 @@ describe(@"RLCAppDelegate", ^{
     context(@"at startup", ^{
         it(@"should initialize Core Data Stack", ^{
             RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+            [[appDelegate should] respondToSelector:@selector(managedObjectContext)];
             [[appDelegate valueForKey:@"_managedObjectContext"] shouldBeNil];
-            [appDelegate application:nil didFinishLaunchingWithOptions:nil];
+            [appDelegate.managedObjectContext shouldNotBeNil];
             [[appDelegate valueForKey:@"_managedObjectContext"] shouldNotBeNil];
         });
     });
@@ -171,7 +178,7 @@ describe(@"ProfileViewController", ^{
     __block ProfileViewController *profile;
 
     beforeEach(^{
-        profile = (ProfileViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ProfileView"];
+        profile = (ProfileViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Profile"];
     });
 
     afterEach(^{
@@ -186,9 +193,9 @@ describe(@"ProfileViewController", ^{
             [[profile.surnameLabel should] beMemberOfClass:[UILabel class]];
             [[profile.birthdateLabel should] beMemberOfClass:[UILabel class]];
             [[profile.textContainer should] beMemberOfClass:[UIView class]];
-            [[profile.nameLabel.text should] equal:@"Label"];
-            [[profile.surnameLabel.text should] equal:@"Label"];
-            [[profile.birthdateLabel.text should] equal:@"Label"];
+            [[profile.nameLabel.text should] equal:@"Loading..."];
+            [[profile.surnameLabel.text should] equal:@"Loading..."];
+            [[profile.birthdateLabel.text should] equal:@"Loading..."];
         });
 
         it(@"has no person data", ^{
@@ -203,7 +210,7 @@ describe(@"ProfileViewController", ^{
             [[profile.nameLabel.text should] equal:person.name];
             [[profile.surnameLabel.text should] equal:person.surname];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
             [[profile.birthdateLabel.text should] equal:[dateFormatter stringFromDate:person.birthdate]];
             [MagicalRecord cleanUp];
@@ -226,8 +233,9 @@ describe(@"ProfileViewController", ^{
             }
             [profile didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
             [[theValue(UIInterfaceOrientationIsPortrait(profile.interfaceOrientation)) should] equal:@YES];
-            [[theValue(profile.photoView.center) should] equal:theValue(CGPointMake(160.0f, 84.0f))];
-            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(160.0f, 273.0f))];
+            [[theValue(profile.photoContainer.center) should] equal:theValue(CGPointMake(160.0f, 84.0f))];
+            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(160.0f, 239.0f))];
+            [[theValue(profile.fbLoginView.center) should] equal:theValue(CGPointMake(160.0f, 368.0f))];
         });
 
         it(@"has landscape layout", ^{
@@ -245,8 +253,9 @@ describe(@"ProfileViewController", ^{
             }
             [profile didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
             [[theValue(UIInterfaceOrientationIsLandscape(profile.interfaceOrientation)) should] equal:@YES];
-            [[theValue(profile.photoView.center) should] equal:theValue(CGPointMake(84.0f, 84.0f))];
-            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(296.0f, 123.0f))];
+            [[theValue(profile.photoContainer.center) should] equal:theValue(CGPointMake(95.0f, 84.0f))];
+            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(320.0f, 103.0f))];
+            [[theValue(profile.fbLoginView.center) should] equal:theValue(CGPointMake(96.0f, 210.0f))];
         });
     });
 });
@@ -262,7 +271,7 @@ describe(@"BioViewController", ^{
     __block BioViewController *bio;
 
     beforeEach(^{
-        bio = (BioViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BioView"];
+        bio = (BioViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Bio"];
     });
 
     afterEach(^{
@@ -301,7 +310,7 @@ describe(@"ContactsViewController", ^{
     __block ContactsViewController *contacts;
 
     beforeEach(^{
-        contacts = (ContactsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ContactsView"];
+        contacts = (ContactsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Contacts"];
     });
 
     afterEach(^{
