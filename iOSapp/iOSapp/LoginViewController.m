@@ -111,22 +111,4 @@
     }
 }
 
-- (void)loginViewShowingLoggedOutUser:(FBLoginView *)loginView
-{
-    // Facebook SDK * login flow *
-    // It is important to always handle session closure because it can happen
-    // externally; for example, if the current session's access token becomes
-    // invalid. Here we simply pop back to the landing page.
-    [self logOut];
-}
-
-- (void)logOut
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setBool:NO forKey:@"isLoggedIn"];
-    [defaults synchronize];
-
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
-
 @end

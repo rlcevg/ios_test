@@ -41,8 +41,8 @@
 		3EE8111C175F60C900D446DD /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8111B175F60C900D446DD /* Contact.m */; };
 		3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */; };
 		3EF6F9CE17632ECE005A5185 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F9CD17632ECE005A5185 /* LoginViewController.m */; };
-		3EF6FB1417633714005A5185 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF6FB1317633714005A5185 /* FacebookSDK.framework */; };
 		781659F09D10407DB784E018 /* libPods-iOSappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */; };
+		8EB9F55869DF419B8D3ED00C /* libPods-iOSapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABD310F06664F3CA8D40D95 /* libPods-iOSapp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +56,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0ABD310F06664F3CA8D40D95 /* libPods-iOSapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOSapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28C9ADB8FC004E6EBF8D4D7D /* Pods-iOSappTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSappTests.xcconfig"; path = "Pods/Pods-iOSappTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		3E0C5C981764B7D7001B75DD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		3E0C5C9A1764B7FE001B75DD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -103,8 +104,8 @@
 		3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookAuthTests.m; sourceTree = "<group>"; };
 		3EF6F9CC17632ECE005A5185 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		3EF6F9CD17632ECE005A5185 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
-		3EF6FB1317633714005A5185 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
 		6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-iOSappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC86ED886F2943899D79EF91 /* Pods-iOSapp.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOSapp.xcconfig"; path = "Pods/Pods-iOSapp.xcconfig"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,11 +118,11 @@
 				3E0C5C9D1764B80B001B75DD /* Social.framework in Frameworks */,
 				3E0C5C9B1764B7FE001B75DD /* Security.framework in Frameworks */,
 				3E0C5C991764B7D7001B75DD /* Accounts.framework in Frameworks */,
-				3EF6FB1417633714005A5185 /* FacebookSDK.framework in Frameworks */,
 				3EB7757F175E7C0A00D0DD6F /* UIKit.framework in Frameworks */,
 				3EB77581175E7C0A00D0DD6F /* Foundation.framework in Frameworks */,
 				3EB77583175E7C0A00D0DD6F /* CoreGraphics.framework in Frameworks */,
 				3EB77585175E7C0A00D0DD6F /* CoreData.framework in Frameworks */,
+				8EB9F55869DF419B8D3ED00C /* libPods-iOSapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +149,7 @@
 				3EB7757D175E7C0A00D0DD6F /* Frameworks */,
 				3EB7757C175E7C0A00D0DD6F /* Products */,
 				28C9ADB8FC004E6EBF8D4D7D /* Pods-iOSappTests.xcconfig */,
+				AC86ED886F2943899D79EF91 /* Pods-iOSapp.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -169,13 +171,13 @@
 				3E0C5C9C1764B80B001B75DD /* Social.framework */,
 				3E0C5C9A1764B7FE001B75DD /* Security.framework */,
 				3E0C5C981764B7D7001B75DD /* Accounts.framework */,
-				3EF6FB1317633714005A5185 /* FacebookSDK.framework */,
 				3EB7757E175E7C0A00D0DD6F /* UIKit.framework */,
 				3EB77580175E7C0A00D0DD6F /* Foundation.framework */,
 				3EB77582175E7C0A00D0DD6F /* CoreGraphics.framework */,
 				3EB77584175E7C0A00D0DD6F /* CoreData.framework */,
 				3EB775AA175E7C0B00D0DD6F /* SenTestingKit.framework */,
 				6C995E04B03E4BD2A316EC40 /* libPods-iOSappTests.a */,
+				0ABD310F06664F3CA8D40D95 /* libPods-iOSapp.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -183,6 +185,7 @@
 		3EB77586175E7C0A00D0DD6F /* iOSapp */ = {
 			isa = PBXGroup;
 			children = (
+				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
 				3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */,
 				3EB7758F175E7C0A00D0DD6F /* RLCAppDelegate.h */,
 				3EB77590175E7C0A00D0DD6F /* RLCAppDelegate.m */,
@@ -199,7 +202,6 @@
 				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
 				3EE8111A175F60C900D446DD /* Contact.h */,
 				3EE8111B175F60C900D446DD /* Contact.m */,
-				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
 				3EE81114175F535C00D446DD /* DataTabBarController.h */,
 				3EE81115175F535C00D446DD /* DataTabBarController.m */,
 				3EF6F9CC17632ECE005A5185 /* LoginViewController.h */,
@@ -227,8 +229,8 @@
 		3EB775B1175E7C0B00D0DD6F /* iOSappTests */ = {
 			isa = PBXGroup;
 			children = (
-				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EB775B2175E7C0B00D0DD6F /* Supporting Files */,
+				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */,
 			);
 			path = iOSappTests;
@@ -250,9 +252,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3EB775BC175E7C0B00D0DD6F /* Build configuration list for PBXNativeTarget "iOSapp" */;
 			buildPhases = (
+				2159D2A655E645E080B0EF9C /* Check Pods Manifest.lock */,
 				3EB77577175E7C0A00D0DD6F /* Sources */,
 				3EB77578175E7C0A00D0DD6F /* Frameworks */,
 				3EB77579175E7C0A00D0DD6F /* Resources */,
+				0F3399C9154C413E97955C5E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -339,6 +343,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0F3399C9154C413E97955C5E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-iOSapp-resources.sh\"\n";
+		};
+		2159D2A655E645E080B0EF9C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
 		3EB775A7175E7C0B00D0DD6F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -506,6 +538,7 @@
 		};
 		3EB775BD175E7C0B00D0DD6F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC86ED886F2943899D79EF91 /* Pods-iOSapp.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -522,6 +555,7 @@
 		};
 		3EB775BE175E7C0B00D0DD6F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AC86ED886F2943899D79EF91 /* Pods-iOSapp.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

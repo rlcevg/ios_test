@@ -10,7 +10,7 @@
 #import "DataTab.h"
 #import <FacebookSDK/FacebookSDK.h>
 
-@interface ProfileViewController : UIViewController <DataTab>
+@interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;

@@ -7,6 +7,8 @@
 //
 
 #import "Kiwi.h"
+#import "LoginViewController.h"
+#import <Face
 
 SPEC_BEGIN(LoginViewControllerTests)
 
@@ -27,18 +29,9 @@ describe(@"LoginViewController", ^{
             [viewController shouldNotBeNil];
         });
 
-        context(@"should have a field to enter User Name that", ^{
-            it(@"exists and is called userName", ^{
-                [[viewController.userName should] beKindOfClass:[UITextField class]];
-            });
-        });
-
-        context(@"should have a field to enter Password that", ^{
-            it(@"exists and is called password", ^{
-                [[viewController.password should] beKindOfClass:[UITextField class]];
-            });
-            it(@"is secure", ^{
-                [[theValue(viewController.password.secureTextEntry) should] equal:theValue(YES)];
+        context(@"should have a magic login button", ^{
+            it(@"exists and is called fbLoginView", ^{
+                [[viewController.fbLoginView should] beKindOfClass:[FBLoginView class]];
             });
         });
 

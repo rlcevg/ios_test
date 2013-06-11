@@ -8,4 +8,9 @@ platform :ios
 target :iOSappTests, :exclusive => true do
    pod 'Kiwi'
    pod 'MagicalRecord'
+   pod 'Facebook-iOS-SDK'
+end
+
+target :iOSapp, :exclusive => true do
+   pod 'Facebook-iOS-SDK'
 end
