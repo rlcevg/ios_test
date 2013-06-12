@@ -1,12 +1,15 @@
 PODS:
+  - Facebook-iOS-SDK (3.5.1)
   - Kiwi (2.1)
   - MagicalRecord (2.1)
 
 DEPENDENCIES:
+  - Facebook-iOS-SDK
   - Kiwi
   - MagicalRecord
 
 SPEC CHECKSUMS:
+  Facebook-iOS-SDK: 0dbd897e842cefeb012ec2eb8eba659ba6b96b12
   Kiwi: 054ef97d0e50c279b21113a0880a906fa153a7fd
   MagicalRecord: 64e7184c240087a45e9588a722eaf05b0ad837f7
 

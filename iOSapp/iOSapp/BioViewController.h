@@ -10,6 +10,7 @@
 #import "DataTab.h"
 
 @interface BioViewController : UIViewController <UITextViewDelegate, DataTab>
+
 @property (weak, nonatomic) IBOutlet UITextView *bioText;
 
 @end

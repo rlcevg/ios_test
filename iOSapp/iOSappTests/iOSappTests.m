@@ -20,15 +20,8 @@
 SPEC_BEGIN(StorageSpec)
 
 describe(@"PersonEntity", ^{
-    beforeEach(^{
-        [MagicalRecord setupCoreDataStack];
-    });
-
-    afterEach(^{
-        [MagicalRecord cleanUp];
-    });
-
     it(@"should create a new object", ^{
+        [MagicalRecord setupCoreDataStackWithInMemoryStore];
         Person *person = [Person MR_createEntity];
 
         [person shouldNotBeNil];
@@ -36,10 +29,24 @@ describe(@"PersonEntity", ^{
         [person.surname shouldBeNil];
         [person.bio shouldBeNil];
         [person.photo shouldBeNil];
+        [person.contacts shouldNotBeNil];
+        [MagicalRecord cleanUp];
     });
 
     it(@"should have preloaded data", ^{
-        NSArray *people = [Person MR_findAll];
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+
+        // Remove iOSapp.sqlite
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+
+        // Get Person data
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:appDelegate.managedObjectContext];
+        [fetchRequest setEntity:entity];
+        NSArray *people = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
         [[theValue([people count]) should] equal:theValue(1)];
 
         Person *person = people[0];
@@ -54,7 +61,6 @@ describe(@"PersonEntity", ^{
         [[person.photo should] beMemberOfClass:[UIImage class]];
         [[theValue([person.contacts count]) should] equal:theValue(3)];
     });
-
 });
 
 SPEC_END
@@ -66,9 +72,19 @@ SPEC_BEGIN(DataTabBarControllerTest)
 describe(@"DataTabBarController", ^{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     __block DataTabBarController *dataTab;
+    __block NSManagedObjectContext *managedObjectContext;
+
+    beforeAll(^{
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+        managedObjectContext = appDelegate.managedObjectContext;
+    });
 
     beforeEach(^{
-        dataTab = (DataTabBarController *)[storyboard instantiateInitialViewController];
+        dataTab = (DataTabBarController *)[storyboard instantiateViewControllerWithIdentifier:@"DataTabBar"];
     });
 
     afterEach(^{
@@ -91,14 +107,12 @@ describe(@"DataTabBarController", ^{
         });
 
         it(@"loads person data", ^{
-            [MagicalRecord setupCoreDataStack];
-            dataTab.managedObjectContext = [NSManagedObjectContext MR_context];
+            dataTab.managedObjectContext = managedObjectContext;
             [dataTab.managedObjectContext shouldNotBeNil];
             [[dataTab valueForKey:@"_person"] shouldBeNil];
             Person *person = dataTab.person;
             [[dataTab valueForKey:@"_person"] shouldNotBeNil];
             [[person.name should] equal:@"Евгений"];
-            [MagicalRecord cleanUp];
         });
 
         it(@"should not create managedObjectContext", ^{
@@ -109,22 +123,19 @@ describe(@"DataTabBarController", ^{
             id delegate = dataTab.delegate;
             [delegate shouldBeNil];
 
-            [MagicalRecord setupCoreDataStack];
-            dataTab.managedObjectContext = [NSManagedObjectContext MR_context];
+            dataTab.managedObjectContext = managedObjectContext;
             [[theValue([dataTab isViewLoaded]) should] equal:@NO];
             [dataTab view];
             [[theValue([dataTab isViewLoaded]) should] equal:@YES];
             delegate = dataTab.delegate;
             [delegate shouldNotBeNil];
             [[delegate should] equal:dataTab];
-            [MagicalRecord cleanUp];
         });
     });
 
     context(@"when controller perform actions", ^{
         it(@"sets data on tab bar tap", ^{
-            [MagicalRecord setupCoreDataStack];
-            dataTab.managedObjectContext = [NSManagedObjectContext MR_context];
+            dataTab.managedObjectContext = managedObjectContext;
 
             [[dataTab.viewControllers[0] valueForKey:@"_person"] shouldBeNil];
             [dataTab tabBarController:dataTab shouldSelectViewController:dataTab.viewControllers[0]];
@@ -137,8 +148,6 @@ describe(@"DataTabBarController", ^{
             [[dataTab.viewControllers[2] valueForKey:@"_contacts"] shouldBeNil];
             [dataTab tabBarController:dataTab shouldSelectViewController:dataTab.viewControllers[2]];
             [[dataTab.viewControllers[2] valueForKey:@"_contacts"] shouldNotBeNil];
-
-            [MagicalRecord cleanUp];
         });
     });
 });
@@ -153,8 +162,9 @@ describe(@"RLCAppDelegate", ^{
     context(@"at startup", ^{
         it(@"should initialize Core Data Stack", ^{
             RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+            [[appDelegate should] respondToSelector:@selector(managedObjectContext)];
             [[appDelegate valueForKey:@"_managedObjectContext"] shouldBeNil];
-            [appDelegate application:nil didFinishLaunchingWithOptions:nil];
+            [appDelegate.managedObjectContext shouldNotBeNil];
             [[appDelegate valueForKey:@"_managedObjectContext"] shouldNotBeNil];
         });
     });
@@ -169,9 +179,19 @@ SPEC_BEGIN(ProfileViewControllerTest)
 describe(@"ProfileViewController", ^{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     __block ProfileViewController *profile;
+    __block NSManagedObjectContext *managedObjectContext;
+
+    beforeAll(^{
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+        managedObjectContext = appDelegate.managedObjectContext;
+    });
 
     beforeEach(^{
-        profile = (ProfileViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ProfileView"];
+        profile = (ProfileViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Profile"];
     });
 
     afterEach(^{
@@ -186,9 +206,9 @@ describe(@"ProfileViewController", ^{
             [[profile.surnameLabel should] beMemberOfClass:[UILabel class]];
             [[profile.birthdateLabel should] beMemberOfClass:[UILabel class]];
             [[profile.textContainer should] beMemberOfClass:[UIView class]];
-            [[profile.nameLabel.text should] equal:@"Label"];
-            [[profile.surnameLabel.text should] equal:@"Label"];
-            [[profile.birthdateLabel.text should] equal:@"Label"];
+            [[profile.nameLabel.text should] equal:@"Loading..."];
+            [[profile.surnameLabel.text should] equal:@"Loading..."];
+            [[profile.birthdateLabel.text should] equal:@"Loading..."];
         });
 
         it(@"has no person data", ^{
@@ -196,17 +216,20 @@ describe(@"ProfileViewController", ^{
         });
 
         it(@"presents person's profile data", ^{
-            [MagicalRecord setupCoreDataStack];
-            Person *person = [Person MR_findAll][0];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:managedObjectContext];
+            [fetchRequest setEntity:entity];
+            NSArray *people = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+            Person *person = people[0];
             [profile prepareData:person];
             [profile view];
             [[profile.nameLabel.text should] equal:person.name];
             [[profile.surnameLabel.text should] equal:person.surname];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+            [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
             [[profile.birthdateLabel.text should] equal:[dateFormatter stringFromDate:person.birthdate]];
-            [MagicalRecord cleanUp];
         });
     });
 
@@ -226,8 +249,9 @@ describe(@"ProfileViewController", ^{
             }
             [profile didRotateFromInterfaceOrientation:UIInterfaceOrientationLandscapeLeft];
             [[theValue(UIInterfaceOrientationIsPortrait(profile.interfaceOrientation)) should] equal:@YES];
-            [[theValue(profile.photoView.center) should] equal:theValue(CGPointMake(160.0f, 84.0f))];
-            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(160.0f, 273.0f))];
+            [[theValue(profile.photoContainer.center) should] equal:theValue(CGPointMake(160.0f, 84.0f))];
+            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(160.0f, 239.0f))];
+            [[theValue(profile.fbLoginView.center) should] equal:theValue(CGPointMake(160.0f, 368.0f))];
         });
 
         it(@"has landscape layout", ^{
@@ -245,8 +269,9 @@ describe(@"ProfileViewController", ^{
             }
             [profile didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
             [[theValue(UIInterfaceOrientationIsLandscape(profile.interfaceOrientation)) should] equal:@YES];
-            [[theValue(profile.photoView.center) should] equal:theValue(CGPointMake(84.0f, 84.0f))];
-            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(296.0f, 123.0f))];
+            [[theValue(profile.photoContainer.center) should] equal:theValue(CGPointMake(95.0f, 84.0f))];
+            [[theValue(profile.textContainer.center) should] equal:theValue(CGPointMake(320.0f, 103.0f))];
+            [[theValue(profile.fbLoginView.center) should] equal:theValue(CGPointMake(96.0f, 210.0f))];
         });
     });
 });
@@ -260,9 +285,19 @@ SPEC_BEGIN(BioViewControllerTest)
 describe(@"BioViewController", ^{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     __block BioViewController *bio;
+    __block NSManagedObjectContext *managedObjectContext;
+
+    beforeAll(^{
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+        managedObjectContext = appDelegate.managedObjectContext;
+    });
 
     beforeEach(^{
-        bio = (BioViewController *)[storyboard instantiateViewControllerWithIdentifier:@"BioView"];
+        bio = (BioViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Bio"];
     });
 
     afterEach(^{
@@ -280,12 +315,16 @@ describe(@"BioViewController", ^{
         });
 
         it(@"presents person's bio data", ^{
-            [MagicalRecord setupCoreDataStack];
-            Person *person = [Person MR_findAll][0];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:managedObjectContext];
+            [fetchRequest setEntity:entity];
+            NSArray *people = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+            Person *person = people[0];
             [bio prepareData:person];
             [bio view];
+            [[person.bio should] startWithString:@"По снегам ли зимой иль по хляби осенней"];
             [[bio.bioText.text should] equal:person.bio];
-            [MagicalRecord cleanUp];
         });
     });
 });
@@ -299,9 +338,19 @@ SPEC_BEGIN(ContactsViewControllerTest)
 describe(@"ContactsViewController", ^{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     __block ContactsViewController *contacts;
+    __block NSManagedObjectContext *managedObjectContext;
+
+    beforeAll(^{
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+        managedObjectContext = appDelegate.managedObjectContext;
+    });
 
     beforeEach(^{
-        contacts = (ContactsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"ContactsView"];
+        contacts = (ContactsViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Contacts"];
     });
 
     afterEach(^{
@@ -314,12 +363,15 @@ describe(@"ContactsViewController", ^{
         });
 
         it(@"presents person's contacts", ^{
-            [MagicalRecord setupCoreDataStack];
-            Person *person = [Person MR_findAll][0];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:managedObjectContext];
+            [fetchRequest setEntity:entity];
+            NSArray *people = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+            Person *person = people[0];
             [contacts prepareData:person];
             [contacts view];
             [[theValue([contacts.tableView numberOfRowsInSection:0]) should] equal:theValue(3)];
-            [MagicalRecord cleanUp];
         });
     });
 });

@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Person.h"
+@class Person;
 
 @interface DataTabBarController : UITabBarController <UITabBarControllerDelegate>
 
 @property (strong, nonatomic) Person *person;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
+- (void)reloadData;
 
 @end

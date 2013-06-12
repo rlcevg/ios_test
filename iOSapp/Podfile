@@ -1,11 +1,9 @@
 # Podfile
-
-# Select the appropriate platform below
 platform :ios
-# platform :osx
 
-# Add Kiwi as an exclusive dependency for the AmazingAppTests target
+pod 'Facebook-iOS-SDK'
+
 target :iOSappTests, :exclusive => true do
-   pod 'Kiwi'
-   pod 'MagicalRecord'
+    pod 'Kiwi'
+    pod 'MagicalRecord'
 end
