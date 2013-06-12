@@ -285,6 +285,16 @@ SPEC_BEGIN(BioViewControllerTest)
 describe(@"BioViewController", ^{
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
     __block BioViewController *bio;
+    __block NSManagedObjectContext *managedObjectContext;
+
+    beforeAll(^{
+        RLCAppDelegate *appDelegate = [[RLCAppDelegate alloc] init];
+        NSURL *storeURL = [[appDelegate applicationDocumentsDirectory] URLByAppendingPathComponent:@"iOSapp.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:[storeURL path]]) {
+            [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil];
+        }
+        managedObjectContext = appDelegate.managedObjectContext;
+    });
 
     beforeEach(^{
         bio = (BioViewController *)[storyboard instantiateViewControllerWithIdentifier:@"Bio"];
@@ -305,12 +315,16 @@ describe(@"BioViewController", ^{
         });
 
         it(@"presents person's bio data", ^{
-            [MagicalRecord setupCoreDataStack];
-            Person *person = [Person MR_findAll][0];
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+            NSEntityDescription *entity = [NSEntityDescription entityForName:@"Person" inManagedObjectContext:managedObjectContext];
+            [fetchRequest setEntity:entity];
+            NSArray *people = [managedObjectContext executeFetchRequest:fetchRequest error:nil];
+
+            Person *person = people[0];
             [bio prepareData:person];
             [bio view];
+            [[person.bio should] startWithString:@"По снегам ли зимой иль по хляби осенней"];
             [[bio.bioText.text should] equal:person.bio];
-            [MagicalRecord cleanUp];
         });
     });
 });
