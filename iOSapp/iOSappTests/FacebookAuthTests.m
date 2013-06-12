@@ -10,10 +10,9 @@
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProfileViewController.h"
-//#import <FacebookSDK/FBTestSession.h>
+#import <FacebookSDK/FBTestSession.h>
 #import "DataTabBarController.h"
 #import "RLCAppDelegate.h"
-#import "FBTestSession+RLCTestSession.h"
 
 SPEC_BEGIN(LoginViewControllerTests)
 
@@ -84,8 +83,8 @@ describe(@"ProfileViewController", ^{
             [viewController loadView];
         });
 
-        // Fails with blocks on blocks by blocks and over blocks... too many threading
-        xit(@"should load user's info", ^{
+        // Fails with blocks on blocks by blocks and over blocks... too many threading?..
+        pending(@"should load user's info", ^{
             DataTabBarController *dataTab = (DataTabBarController *)[storyBoard instantiateViewControllerWithIdentifier:@"DataTabBar"];
             dataTab.managedObjectContext = managedObjectContext;
             viewController = dataTab.viewControllers[0];

@@ -90,8 +90,11 @@
 
 - (void)clearPersonData
 {
-    [self.managedObjectContext deleteObject:self.person];
-    self.person = nil;
+    Person *person = self.person;
+    if (person) {
+        [self.managedObjectContext deleteObject:person];
+        self.person = nil;
+    }
     self.loading = YES;
 }
 

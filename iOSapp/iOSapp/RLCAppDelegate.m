@@ -58,7 +58,7 @@
     // automatically open a session if there is a token cached. If we were not using
     // that control, this location would be a good place to try to open a session
     // from a token cache.
-NSLog(@"Bundle ID: %@",[[NSBundle mainBundle] bundleIdentifier]);
+
     UINavigationController *navigationController = (UINavigationController *)self.window.rootViewController;
     self.loginViewController = (LoginViewController *)navigationController.topViewController;
     return YES;
