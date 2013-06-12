@@ -33,6 +33,8 @@
 		3EB775AE175E7C0B00D0DD6F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77584175E7C0A00D0DD6F /* CoreData.framework */; };
 		3EB775B6175E7C0B00D0DD6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775B4175E7C0B00D0DD6F /* InfoPlist.strings */; };
 		3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */; };
+		3EDD539A1768B8C5007F8BE6 /* FBTestSession+RLCTestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD53991768B8C5007F8BE6 /* FBTestSession+RLCTestSession.m */; };
+		3EDD539D1768CC50007F8BE6 /* TestFacebookAuth.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDD539C1768CC50007F8BE6 /* TestFacebookAuth.m */; };
 		3EDF09181766622D003E2BEA /* RLCProfilePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */; };
 		3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110B175F3EC600D446DD /* ProfileViewController.m */; };
 		3EE8110F175F3F6E00D446DD /* BioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110E175F3F6E00D446DD /* BioViewController.m */; };
@@ -87,6 +89,10 @@
 		3EB775B3175E7C0B00D0DD6F /* iOSappTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iOSappTests-Info.plist"; sourceTree = "<group>"; };
 		3EB775B5175E7C0B00D0DD6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
+		3EDD53981768B8C5007F8BE6 /* FBTestSession+RLCTestSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBTestSession+RLCTestSession.h"; sourceTree = "<group>"; };
+		3EDD53991768B8C5007F8BE6 /* FBTestSession+RLCTestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBTestSession+RLCTestSession.m"; sourceTree = "<group>"; };
+		3EDD539B1768CC50007F8BE6 /* TestFacebookAuth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFacebookAuth.h; sourceTree = "<group>"; };
+		3EDD539C1768CC50007F8BE6 /* TestFacebookAuth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestFacebookAuth.m; sourceTree = "<group>"; };
 		3EDF09161766622D003E2BEA /* RLCProfilePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCProfilePictureView.h; sourceTree = "<group>"; };
 		3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCProfilePictureView.m; sourceTree = "<group>"; };
 		3EE8110A175F3EC600D446DD /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
@@ -229,6 +235,10 @@
 				3EB775B2175E7C0B00D0DD6F /* Supporting Files */,
 				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */,
+				3EDD53981768B8C5007F8BE6 /* FBTestSession+RLCTestSession.h */,
+				3EDD53991768B8C5007F8BE6 /* FBTestSession+RLCTestSession.m */,
+				3EDD539B1768CC50007F8BE6 /* TestFacebookAuth.h */,
+				3EDD539C1768CC50007F8BE6 /* TestFacebookAuth.m */,
 			);
 			path = iOSappTests;
 			sourceTree = "<group>";
@@ -435,6 +445,8 @@
 			files = (
 				3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */,
 				3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */,
+				3EDD539A1768B8C5007F8BE6 /* FBTestSession+RLCTestSession.m in Sources */,
+				3EDD539D1768CC50007F8BE6 /* TestFacebookAuth.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

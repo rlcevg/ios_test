@@ -10,9 +10,10 @@
 #import "LoginViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "ProfileViewController.h"
-#import <FacebookSDK/FBTestSession.h>
+//#import <FacebookSDK/FBTestSession.h>
 #import "DataTabBarController.h"
 #import "RLCAppDelegate.h"
+#import "FBTestSession+RLCTestSession.h"
 
 SPEC_BEGIN(LoginViewControllerTests)
 
@@ -112,8 +113,9 @@ describe(@"ProfileViewController", ^{
             // Run loop
             NSDate *loopUntil = [NSDate dateWithTimeIntervalSinceNow:10];
             while (blockFinished == NO && [loopUntil timeIntervalSinceNow] > 0) {
-                [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                         beforeDate:loopUntil];
+//                [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+//                                         beforeDate:loopUntil];
+                sleep(0.1);
             }
 
             [[theValue(FBSession.activeSession.isOpen) should] equal:@YES];
