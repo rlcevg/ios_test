@@ -168,4 +168,13 @@
 //    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
 }
 
+- (void)saveContext
+{
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+}
+
 @end

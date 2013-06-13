@@ -15,5 +15,6 @@
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 - (void)reloadData;
+- (void)saveContext;
 
 @end
