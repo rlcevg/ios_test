@@ -7,7 +7,6 @@
 //
 
 #import "DataTabBarController.h"
-#import "DataTab.h"
 #import "Person.h"
 #import "Contact.h"
 #import <FacebookSDK/FacebookSDK.h>

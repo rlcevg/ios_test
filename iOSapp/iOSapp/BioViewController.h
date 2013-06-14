@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataTab.h"
+#import "DataTabBarController.h"
 #import "RLCTextView.h"
 
 @interface BioViewController : UIViewController <UITextViewDelegate, DataTab, RLCTextViewDelegate, UIActionSheetDelegate>

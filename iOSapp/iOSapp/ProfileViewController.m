@@ -7,7 +7,7 @@
 //
 
 #import "ProfileViewController.h"
-#import "DataTabBarController.h"
+#import "Person.h"
 
 @interface ProfileViewController ()
 
@@ -271,13 +271,14 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.text.length > 2 && textField.text.length <= 40) {
-        [self responderWillSave];
-        if (textField == self.nameText) {
-            self.person.name = textField.text;
-        } else if (textField == self.surnameText) {
-            self.person.surname = textField.text;
+        if ([self responderShouldSave]) {
+            if (textField == self.nameText) {
+                self.person.name = textField.text;
+            } else if (textField == self.surnameText) {
+                self.person.surname = textField.text;
+            }
+            [(DataTabBarController *)self.parentViewController saveContext];
         }
-        [(DataTabBarController *)self.parentViewController saveContext];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Validation error"
                                    message:@"Length of name and surname must be greater than 2 chars and less than 40 chars"
@@ -289,10 +290,12 @@
     return NO;
 }
 
-- (void)responderWillSave
+- (BOOL)responderShouldSave
 {
     [self.responder resignFirstResponder];
+    BOOL result = ![self.undoText isEqualToString:self.responder.text];
     self.responder = nil;
+    return result;
 }
 
 - (void)responderCancel
@@ -326,9 +329,10 @@
 
 - (void)dateFieldWillSave:(RLCDateField *)dateField
 {
-    [self responderWillSave];
-    self.person.birthdate = dateField.date;
-    [(DataTabBarController *)self.parentViewController saveContext];
+    if ([self responderShouldSave]) {
+        self.person.birthdate = dateField.date;
+        [(DataTabBarController *)self.parentViewController saveContext];
+    }
 }
 
 - (void)dateFieldWillCancel:(RLCDateField *)dateField

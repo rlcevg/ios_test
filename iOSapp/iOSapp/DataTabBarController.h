@@ -9,6 +9,12 @@
 #import <UIKit/UIKit.h>
 @class Person;
 
+@protocol DataTab <NSObject>
+
+- (void)prepareData:(Person *)person;
+
+@end
+
 @interface DataTabBarController : UITabBarController <UITabBarControllerDelegate>
 
 @property (strong, nonatomic) Person *person;

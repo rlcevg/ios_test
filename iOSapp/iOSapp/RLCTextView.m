@@ -7,7 +7,6 @@
 //
 
 #import "RLCTextView.h"
-#import "RLCTextViewDelegate.h"
 
 @interface RLCTextView ()
 

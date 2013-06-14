@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RLCDateFieldDelegate.h"
+@class RLCDateField;
+
+@protocol RLCDateFieldDelegate <NSObject>
+
+@required
+- (void)dateFieldWillSave:(RLCDateField *)dateField;
+- (void)dateFieldWillCancel:(RLCDateField *)dateField;
+
+@optional
+- (void)dateFieldDidChangeDate:(RLCDateField *)dateField;
+
+@end
 
 @interface RLCDateField : UITextField
 

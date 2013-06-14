@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RLCTextViewDelegate.h"
+@class RLCTextView;
+
+@protocol RLCTextViewDelegate <NSObject>
+
+- (void)textViewWillSave:(RLCTextView *)textView;
+- (void)textViewWillCancel:(RLCTextView *)textView;
+
+@end
 
 @interface RLCTextView : UITextView
 

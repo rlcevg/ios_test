@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataTab.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "DataTabBarController.h"
 #import "RLCDateField.h"
 
 @interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate, UITextFieldDelegate, RLCDateFieldDelegate>

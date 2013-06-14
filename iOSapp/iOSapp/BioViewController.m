@@ -8,7 +8,7 @@
 
 #import "BioViewController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "DataTabBarController.h"
+#import "Person.h"
 
 typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
