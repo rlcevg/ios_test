@@ -16,6 +16,7 @@
 @property (weak, nonatomic) UITextField *responder;
 @property (assign, nonatomic) CGRect keyboardFrame;
 @property (strong, nonatomic) NSString *undoText;
+@property (assign, nonatomic, getter=isRotating) BOOL rotating;
 
 - (void)configureView;
 
@@ -69,7 +70,9 @@
     CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
     self.keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
 
-    [self keyboardPopup];
+    if (!self.rotating) {
+        [self keyboardPopup];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)notification
@@ -117,11 +120,22 @@
     }
 }
 
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    self.rotating = YES;
+}
+
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.4 animations:^{
         [self updateViewLayout];
+    } completion:^(BOOL finished){
+        self.rotating = NO;
+        if (self.responder) {
+            [self keyboardPopup];
+        }
     }];
 }
 
@@ -250,14 +264,14 @@
     self.undoText = textField.text;
     if (textField == self.birthdateText) {
         self.birthdateText.date = self.person.birthdate;
+        self.birthdateText.dateView.maximumDate = [NSDate date];
     }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.text.length > 2 && textField.text.length <= 40) {
-        [textField resignFirstResponder];
-        self.responder = nil;
+        [self responderWillSave];
         if (textField == self.nameText) {
             self.person.name = textField.text;
         } else if (textField == self.surnameText) {
@@ -266,13 +280,19 @@
         [(DataTabBarController *)self.parentViewController saveContext];
     } else {
         [[[UIAlertView alloc] initWithTitle:@"Validation error"
-                                   message:@"Length of name and surname must be greater than 3 chars and less than 40 chars"
+                                   message:@"Length of name and surname must be greater than 2 chars and less than 40 chars"
                                   delegate:nil
                          cancelButtonTitle:@"Ok"
                          otherButtonTitles:nil] show];
         [self responderCancel];
     }
     return NO;
+}
+
+- (void)responderWillSave
+{
+    [self.responder resignFirstResponder];
+    self.responder = nil;
 }
 
 - (void)responderCancel
@@ -306,8 +326,7 @@
 
 - (void)dateFieldWillSave:(RLCDateField *)dateField
 {
-    [dateField resignFirstResponder];
-    self.responder = nil;
+    [self responderWillSave];
     self.person.birthdate = dateField.date;
     [(DataTabBarController *)self.parentViewController saveContext];
 }
