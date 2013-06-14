@@ -17,6 +17,7 @@
 @property (assign, nonatomic) CGRect keyboardFrame;
 @property (strong, nonatomic) NSString *undoText;
 @property (assign, nonatomic, getter=isRotating) BOOL rotating;
+@property (strong, nonatomic) UIImagePickerController *imagePicker;
 
 - (void)configureView;
 
@@ -97,12 +98,37 @@
     }
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *) event
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [[event allTouches] anyObject];
     if (self.responder && (self.responder != touch.view)) {
         [self responderCancel];
+    } else if (!self.responder && self.photoView.superview == touch.view) {
+        [self presentViewController:self.imagePicker animated:YES completion:NULL];
     }
+}
+
+- (UIImagePickerController *)imagePicker
+{
+    if (!_imagePicker) {
+        _imagePicker = [[UIImagePickerController alloc] init];
+        _imagePicker.delegate = self;
+        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+    return _imagePicker;
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
+}
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    self.photoView.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+    [self.presentedViewController dismissViewControllerAnimated:YES completion:NULL];
+    self.person.photo = self.photoView.image;
+    [(DataTabBarController *)self.parentViewController saveContext];
 }
 
 #pragma mark - Orientation behavior

@@ -11,7 +11,8 @@
 #import "DataTabBarController.h"
 #import "RLCDateField.h"
 
-@interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate, UITextFieldDelegate, RLCDateFieldDelegate>
+@interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate, UITextFieldDelegate, RLCDateFieldDelegate,
+                                                     UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
