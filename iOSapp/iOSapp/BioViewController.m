@@ -16,6 +16,7 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
 @property (strong, nonatomic) Person *person;
 @property (assign, nonatomic) BIOVIEW_BUTTONS pressedButton;
+
 - (void)configureView;
 
 @end
@@ -53,6 +54,37 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWillShow:(NSNotification *)notification
+{
+    CGRect keyboardFrame = [notification.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    keyboardFrame = [self.view convertRect:keyboardFrame fromView:nil];
+
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    self.bioText.frame = CGRectMake(0.0f, 0.0f, keyboardFrame.size.width, keyboardFrame.origin.y);
+    [UIView commitAnimations];
+}
+
+- (void)keyboardWillHide:(NSNotification *)notification
+{
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[notification.userInfo[UIKeyboardAnimationDurationUserInfoKey] floatValue]];
+    self.bioText.frame = self.view.frame;
+    [UIView commitAnimations];
+}
+
 - (void)configureView
 {
     if (self.person) {
@@ -84,37 +116,27 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
 - (BOOL)textViewShouldBeginEditing:(RLCTextView *)textView
 {
-    if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, 205.0f);
-        [UIView commitAnimations];
-    } else {
-        [UIView beginAnimations:nil context:NULL];
-        [UIView setAnimationDuration:0.3];
-        textView.frame = CGRectMake(textView.frame.origin.x, textView.frame.origin.y, textView.frame.size.width, 100.0f);
-        [UIView commitAnimations];
-    }
     textView.editing = YES;
     return YES;
 }
 
-#pragma mark - RLCTextViewDelegate protocol
-
-- (void)textViewOnSave:(RLCTextView *)textView
+- (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    self.pressedButton = BIOVIEW_SAVE_BUTTON;
-    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Are you sure?"
-                                                            delegate:self
-                                                   cancelButtonTitle:@"No"
-                                              destructiveButtonTitle:@"Yes, save text"
-                                                   otherButtonTitles:nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleDefault;
-//    [popupQuery showFromTabBar:self.tabBarController.tabBar];
-    [popupQuery showInView:self.tabBarController.tabBar.superview];
 }
 
-- (void)textViewOnCancel:(RLCTextView *)textView
+#pragma mark - RLCTextViewDelegate protocol
+
+- (void)textViewWillSave:(RLCTextView *)textView
+{
+    self.pressedButton = BIOVIEW_SAVE_BUTTON;
+    [[[UIActionSheet alloc] initWithTitle:@"Are you sure?"
+                                 delegate:self
+                        cancelButtonTitle:@"No"
+                   destructiveButtonTitle:@"Yes, save text"
+                        otherButtonTitles:nil] showInView:self.tabBarController.tabBar.superview];
+}
+
+- (void)textViewWillCancel:(RLCTextView *)textView
 {
     self.pressedButton = BIOVIEW_CANCEL_BUTTON;
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Are you sure?"
@@ -122,8 +144,7 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
                                                    cancelButtonTitle:@"No"
                                               destructiveButtonTitle:@"Yes, cancel editing"
                                                    otherButtonTitles:nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleDefault;
-//    [popupQuery showFromTabBar:self.tabBarController.tabBar];
+    popupQuery.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     [popupQuery showInView:self.tabBarController.tabBar.superview];
 }
 
@@ -145,39 +166,15 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
 - (void)textViewSave:(RLCTextView *)textView
 {
-    [self restoreTextView:textView];
+    textView.editing = NO;
     self.person.bio = textView.text;
     [(DataTabBarController *)self.parentViewController saveContext];
 }
 
 - (void)textViewCancel:(RLCTextView *)textView
 {
-    [self restoreTextView:textView];
-    textView.text = self.person.bio;
-}
-
-- (void)restoreTextView:(RLCTextView *)textView
-{
     textView.editing = NO;
-    [UIView animateWithDuration:0.3 animations:^{
-        textView.frame = self.view.frame;
-    }];
-}
-
-#pragma mark - Orientation behavior
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    if (self.bioText.editing) {
-        [UIView animateWithDuration:0.1 animations:^{
-            if (UIInterfaceOrientationIsPortrait(self.interfaceOrientation)) {
-                self.bioText.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, 205.0f);
-            } else {
-                self.bioText.frame = CGRectMake(0.0f, 0.0f, self.view.bounds.size.width, 100.0f);
-            }
-        }];
-    }
+    textView.text = self.person.bio;
 }
 
 @end

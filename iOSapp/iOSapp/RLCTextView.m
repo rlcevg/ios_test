@@ -33,21 +33,16 @@
 {
     [super awakeFromNib];
     [self initialize];
-
 }
 
 - (void)initialize
 {
-    self.font = [UIFont fontWithName:@"Arial" size:15.0];
-    self.textColor = [UIColor blackColor];
-    self.backgroundColor = [UIColor clearColor];
-
     UIToolbar *doneBar = self.doneBar;
     doneBar.barStyle = UIBarStyleBlack;
     doneBar.translucent = YES;
     [doneBar setAlpha:0.5];
-    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(onCancel)];
-    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(onSave)];
+    UIBarButtonItem *cancelBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancel)];
+    UIBarButtonItem *saveBtn = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(save)];
     UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     //Add buttons to the array
     NSArray *items = [NSArray arrayWithObjects:saveBtn, flexItem, cancelBtn, nil];
@@ -57,7 +52,7 @@
 - (UIToolbar *)doneBar
 {
     if (!_doneBar) {
-        _doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 40)];
+        _doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 35)];
     }
     return _doneBar;
 }
@@ -73,17 +68,17 @@
     _editing = editing;
 }
 
-- (void)onSave
+- (void)save
 {
-    if ([self.editDelegate respondsToSelector:@selector(textViewOnSave:)]) {
-        [self.editDelegate textViewOnSave:self];
+    if ([self.editDelegate respondsToSelector:@selector(textViewWillSave:)]) {
+        [self.editDelegate textViewWillSave:self];
     }
 }
 
-- (void)onCancel
+- (void)cancel
 {
-    if ([self.editDelegate respondsToSelector:@selector(textViewOnCancel:)]) {
-        [self.editDelegate textViewOnCancel:self];
+    if ([self.editDelegate respondsToSelector:@selector(textViewWillCancel:)]) {
+        [self.editDelegate textViewWillCancel:self];
     }
 }
 
