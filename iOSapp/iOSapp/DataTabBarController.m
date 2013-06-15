@@ -7,7 +7,6 @@
 //
 
 #import "DataTabBarController.h"
-#import "DataTab.h"
 #import "Person.h"
 #import "Contact.h"
 #import <FacebookSDK/FacebookSDK.h>
@@ -166,6 +165,15 @@
      NSObject does not implement the method.
      */
 //    [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
+
+- (void)saveContext
+{
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
 }
 
 @end

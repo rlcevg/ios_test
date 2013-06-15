@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataTab.h"
+#import "DataTabBarController.h"
+#import "RLCTextView.h"
 
-@interface BioViewController : UIViewController <UITextViewDelegate, DataTab>
+@interface BioViewController : UIViewController <UITextViewDelegate, DataTab, RLCTextViewDelegate, UIActionSheetDelegate>
 
-@property (weak, nonatomic) IBOutlet UITextView *bioText;
+@property (weak, nonatomic) IBOutlet RLCTextView *bioText;
 
 @end

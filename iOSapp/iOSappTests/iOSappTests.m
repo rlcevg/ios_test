@@ -202,13 +202,13 @@ describe(@"ProfileViewController", ^{
         it(@"has outlets", ^{
             [profile view];
             [[profile.photoView should] beMemberOfClass:[UIImageView class]];
-            [[profile.nameLabel should] beMemberOfClass:[UILabel class]];
-            [[profile.surnameLabel should] beMemberOfClass:[UILabel class]];
-            [[profile.birthdateLabel should] beMemberOfClass:[UILabel class]];
+            [[profile.nameText should] beKindOfClass:[UITextField class]];
+            [[profile.surnameText should] beKindOfClass:[UITextField class]];
+            [[profile.birthdateText should] beKindOfClass:[UITextField class]];
             [[profile.textContainer should] beMemberOfClass:[UIView class]];
-            [[profile.nameLabel.text should] equal:@"Loading..."];
-            [[profile.surnameLabel.text should] equal:@"Loading..."];
-            [[profile.birthdateLabel.text should] equal:@"Loading..."];
+            [[profile.nameText.text should] equal:@"Loading..."];
+            [[profile.surnameText.text should] equal:@"Loading..."];
+            [[profile.birthdateText.text should] equal:@"Loading..."];
         });
 
         it(@"has no person data", ^{
@@ -224,12 +224,12 @@ describe(@"ProfileViewController", ^{
             Person *person = people[0];
             [profile prepareData:person];
             [profile view];
-            [[profile.nameLabel.text should] equal:person.name];
-            [[profile.surnameLabel.text should] equal:person.surname];
+            [[profile.nameText.text should] equal:person.name];
+            [[profile.surnameText.text should] equal:person.surname];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
             [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
-            [[profile.birthdateLabel.text should] equal:[dateFormatter stringFromDate:person.birthdate]];
+            [[profile.birthdateText.text should] equal:[dateFormatter stringFromDate:person.birthdate]];
         });
     });
 
@@ -307,7 +307,7 @@ describe(@"BioViewController", ^{
     context(@"at startup", ^{
         it(@"has outlets", ^{
             [bio view];
-            [[bio.bioText should] beMemberOfClass:[UITextView class]];
+            [[bio.bioText should] beKindOfClass:[UITextView class]];
         });
 
         it(@"has no person data", ^{

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataTab.h"
+#import "DataTabBarController.h"
 
-@interface ContactsViewController : UITableViewController <DataTab>
+@interface ContactsViewController : UITableViewController <DataTab, UITableViewDataSource, UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet UINavigationItem *navigation;
 
 @end

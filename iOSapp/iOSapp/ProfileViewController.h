@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DataTab.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import "DataTabBarController.h"
+#import "RLCDateField.h"
 
-@interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate>
+@interface ProfileViewController : UIViewController <DataTab, FBLoginViewDelegate, UITextFieldDelegate, RLCDateFieldDelegate,
+                                                     UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *photoView;
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *surnameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *birthdateLabel;
+@property (weak, nonatomic) IBOutlet UITextField *nameText;
+@property (weak, nonatomic) IBOutlet UITextField *surnameText;
+@property (weak, nonatomic) IBOutlet RLCDateField *birthdateText;
 
 @property (weak, nonatomic) IBOutlet UIView *textContainer;
 @property (weak, nonatomic) IBOutlet FBLoginView *fbLoginView;

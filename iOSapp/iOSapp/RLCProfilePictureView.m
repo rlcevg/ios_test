@@ -8,6 +8,7 @@
 
 #import "RLCProfilePictureView.h"
 
+
 @implementation RLCProfilePictureView
 
 - (id)initWithImageView:(UIImageView *)imageView
@@ -18,8 +19,12 @@
             [self performSelector:@selector(setImageView:) withObject:imageView];
         }
     }
-
     return self;
+}
+
+- (void)initialize
+{
+    //Override to prevent creation of another ImageView (possible memory leak)
 }
 
 @end

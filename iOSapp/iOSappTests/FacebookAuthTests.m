@@ -14,6 +14,7 @@
 #import "DataTabBarController.h"
 #import "RLCAppDelegate.h"
 
+
 SPEC_BEGIN(LoginViewControllerTests)
 
 describe(@"LoginViewController", ^{
@@ -60,6 +61,7 @@ describe(@"LoginViewController", ^{
 
 SPEC_END
 
+
 SPEC_BEGIN(ProfileViewControllerAuthTests)
 
 describe(@"ProfileViewController", ^{
@@ -91,7 +93,7 @@ describe(@"ProfileViewController", ^{
             [viewController prepareData:dataTab.person];
             [viewController view];
 
-            [[viewController.nameLabel.text should] equal:@"Евгений"];
+            [[viewController.nameText.text should] equal:@"Евгений"];
 
             __block bool blockFinished = NO;
             FBTestSession *fbSession = [FBTestSession sessionWithSharedUserWithPermissions:@[@"user_birthday", @"user_about_me", @"email"]];
@@ -119,7 +121,7 @@ describe(@"ProfileViewController", ^{
 
             [[theValue(FBSession.activeSession.isOpen) should] equal:@YES];
             [dataTab reloadData];
-            [[viewController.nameLabel.text should] equal:@"Mary"];
+            [[viewController.nameText.text should] equal:@"Mary"];
         });
 
         context(@"should have a magic logout button", ^{

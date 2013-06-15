@@ -10,11 +10,13 @@
 #import "RLCAppDelegate.h"
 #import "DataTabBarController.h"
 
+
 @interface LoginViewController ()
 
 @property (assign, nonatomic, getter=isNewLogin) BOOL newLogin;
 
 @end
+
 
 @implementation LoginViewController
 
