@@ -13,6 +13,7 @@
 #import "DataTabBarController.h"
 #import "ProfileViewController.h"
 #import "BioViewController.h"
+#import "ContactsViewController.h"
 
 static NSString *TEST_USER_NAME = @"Testusername";
 static NSString *TEST_USER_SURNAME = @"Testusersurname";
@@ -250,6 +251,80 @@ describe(@"BioViewController", ^{
                 [viewController performSelector:@selector(textViewCancel:) withObject:viewController.bioText];
                 [[person.bio should] equal:TEST_ABOUT];
                 [[viewController.bioText.text should] equal:TEST_ABOUT];
+            });
+        });
+    });
+});
+
+SPEC_END
+
+
+SPEC_BEGIN(ContactEditTests)
+
+describe(@"ContactViewController", ^{
+    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:nil];
+
+    context(@"when edited", ^{
+        __block ContactsViewController *viewController;
+        __block Person *person;
+        __block DataTabBarController *parentController;
+
+        beforeEach(^{
+            parentController = (DataTabBarController *)[storyBoard instantiateViewControllerWithIdentifier:@"DataTabBar"];
+            viewController = parentController.viewControllers[2];
+        });
+
+        context(@"should have about text view", ^{
+            beforeEach(^{
+                [MagicalRecord setupCoreDataStackWithInMemoryStore];
+                parentController.managedObjectContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                person = [Person MR_createEntity];
+                NSMutableSet *contacts = [[NSMutableSet alloc] init];
+                for (int i = 0; i < 5; i++) {
+                    Contact *contact = [Contact MR_createEntity];
+                    contact.type = @"email";
+                    contact.contact = [[NSString alloc] initWithFormat:@"some_mail%i0%i@facebook.net", i, i + 10];
+                    [contacts addObject:contact];
+                }
+                [person addContacts:contacts];
+                [[NSManagedObjectContext MR_contextForCurrentThread] save:nil];
+                [viewController prepareData:person];
+                [viewController view];
+            });
+
+            afterEach(^{
+                [MagicalRecord cleanUp];
+            });
+
+            // Can't test this properly because UIBarButtonItem is not UIControl
+            it(@"has a target of the view controller and an action of insertNewContact:", ^{
+//                NSArray *actions = [viewController.navigation.rightBarButtonItem actionsForTarget:viewController forControlEvent:UIControlEventTouchUpInside];
+//                [actions shouldNotBeNil];
+//                [[theValue([actions indexOfObject:@"insertNewContact:"]) shouldNot] equal:theValue(NSNotFound)];
+
+                [[theValue(viewController.navigation.rightBarButtonItem.action) should] equal:theValue(@selector(insertNewContact:))];
+                [[viewController.navigation.rightBarButtonItem.target should] equal:viewController];
+            });
+
+            it(@"should add contacts", ^{
+                id sender = viewController.navigation.rightBarButtonItem;
+                id target = viewController.navigation.rightBarButtonItem.target;
+                SEL action = viewController.navigation.rightBarButtonItem.action;
+                [[theValue([person.contacts count]) should] equal:theValue(5)];
+                [target performSelector:action withObject:sender];
+                [[theValue([person.contacts count]) should] equal:theValue(6)];
+                [target performSelector:action withObject:sender];
+                [[theValue([person.contacts count]) should] equal:theValue(7)];
+            });
+
+            it(@"should delete contacts", ^{
+                NSIndexPath *path = [NSIndexPath indexPathForRow:0 inSection:0];
+                [[theValue([person.contacts count]) should] equal:theValue(5)];
+                [viewController tableView:viewController.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:path];
+                [[theValue([person.contacts count]) should] equal:theValue(4)];
+                [viewController tableView:viewController.tableView commitEditingStyle:UITableViewCellEditingStyleDelete forRowAtIndexPath:path];
+                [[theValue([person.contacts count]) should] equal:theValue(3)];
+
             });
         });
     });

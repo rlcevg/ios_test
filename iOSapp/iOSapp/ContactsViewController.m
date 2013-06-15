@@ -10,7 +10,7 @@
 #import "Person.h"
 #import "Contact.h"
 #import "ContactCell.h"
-#import "RLCAppDelegate.h"
+#import "DataTabBarController.h"
 
 
 @interface ContactsViewController ()
@@ -82,19 +82,15 @@
 - (NSManagedObjectContext *)managedObjectContext
 {
     if (!_managedObjectContext) {
-        RLCAppDelegate *appDelegate = (RLCAppDelegate *)[UIApplication sharedApplication].delegate;
-        _managedObjectContext = appDelegate.managedObjectContext;
+        DataTabBarController *parentController = (DataTabBarController *)self.parentViewController;
+        _managedObjectContext = parentController.managedObjectContext;
     }
     return _managedObjectContext;
 }
 
 - (void)saveContext
 {
-    NSError *error = nil;
-    if (![self.managedObjectContext save:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
+    [(DataTabBarController *)self.parentViewController saveContext];
 }
 
 #pragma mark - DataTab protocol
