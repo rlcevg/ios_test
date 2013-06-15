@@ -8,6 +8,7 @@
 
 #import "RLCProfilePictureView.h"
 
+
 @implementation RLCProfilePictureView
 
 - (id)initWithImageView:(UIImageView *)imageView

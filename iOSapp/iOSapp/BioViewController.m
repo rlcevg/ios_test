@@ -12,6 +12,7 @@
 
 typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
+
 @interface BioViewController ()
 
 @property (strong, nonatomic) Person *person;
@@ -20,6 +21,7 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 - (void)configureView;
 
 @end
+
 
 @implementation BioViewController
 
@@ -118,10 +120,6 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 {
     textView.editing = YES;
     return YES;
-}
-
-- (void)textViewDidBeginEditing:(UITextView *)textView
-{
 }
 
 #pragma mark - RLCTextViewDelegate protocol

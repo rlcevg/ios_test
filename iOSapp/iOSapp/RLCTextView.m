@@ -8,11 +8,13 @@
 
 #import "RLCTextView.h"
 
+
 @interface RLCTextView ()
 
 @property (strong, nonatomic, readonly) UIToolbar *doneBar;
 
 @end
+
 
 @implementation RLCTextView
 

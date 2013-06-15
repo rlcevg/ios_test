@@ -12,6 +12,7 @@
 #import "ContactCell.h"
 #import "RLCAppDelegate.h"
 
+
 @interface ContactsViewController ()
 
 @property (strong, nonatomic) NSMutableArray *contacts;
@@ -22,6 +23,7 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
 @end
+
 
 @implementation ContactsViewController
 

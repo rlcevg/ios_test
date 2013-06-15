@@ -13,6 +13,7 @@
 		3E0C5C9F1764B84B001B75DD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9E1764B84B001B75DD /* AdSupport.framework */; };
 		3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3252A01769B7A800D72C22 /* RLCTextView.m */; };
 		3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */; };
+		3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AC31D176C33B200AD513A /* EditUserDataTest.m */; };
 		3E4B887017676D62004195F8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4B886F17676D62004195F8 /* libsqlite3.dylib */; };
 		3E5F2A211768EF18000B0583 /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1E1768EF0D000B0583 /* 96-book.png */; };
 		3E5F2A221768EF18000B0583 /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */; };
@@ -71,6 +72,7 @@
 		3E3252A01769B7A800D72C22 /* RLCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCTextView.m; sourceTree = "<group>"; };
 		3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
+		3E4AC31D176C33B200AD513A /* EditUserDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserDataTest.m; sourceTree = "<group>"; };
 		3E4B886F17676D62004195F8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3E5F2A1E1768EF0D000B0583 /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
 		3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				3EB775B2175E7C0B00D0DD6F /* Supporting Files */,
 				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */,
+				3E4AC31D176C33B200AD513A /* EditUserDataTest.m */,
 			);
 			path = iOSappTests;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 			files = (
 				3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */,
 				3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */,
+				3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

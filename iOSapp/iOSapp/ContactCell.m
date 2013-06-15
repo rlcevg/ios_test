@@ -8,6 +8,7 @@
 
 #import "ContactCell.h"
 
+
 @implementation ContactCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier

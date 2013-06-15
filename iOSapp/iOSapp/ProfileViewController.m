@@ -9,6 +9,7 @@
 #import "ProfileViewController.h"
 #import "Person.h"
 
+
 @interface ProfileViewController ()
 
 @property (strong, nonatomic) Person *person;
@@ -22,6 +23,7 @@
 - (void)configureView;
 
 @end
+
 
 @implementation ProfileViewController
 
@@ -102,8 +104,10 @@
 {
     UITouch *touch = [[event allTouches] anyObject];
     if (self.responder && (self.responder != touch.view)) {
+        // Cancel text editing
         [self responderCancel];
     } else if (!self.responder && self.photoView.superview == touch.view) {
+        // Show image picker
         [self presentViewController:self.imagePicker animated:YES completion:NULL];
     }
 }
