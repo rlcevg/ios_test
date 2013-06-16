@@ -43,7 +43,9 @@
                                   initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
                                                        target:self
                                                        action:@selector(insertNewContact:)];
+    addButton.enabled = self.person != nil;
     self.navigation.rightBarButtonItem = addButton;
+    self.editButtonItem.enabled = addButton.enabled;
     self.navigation.leftBarButtonItem = self.editButtonItem;
 }
 
@@ -171,6 +173,8 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.responder = textField;
+    self.navigation.leftBarButtonItem.enabled = NO;
+    self.navigation.rightBarButtonItem.enabled = NO;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -189,6 +193,8 @@
             break;
     }
     [self saveContext];
+    self.navigation.leftBarButtonItem.enabled = YES;
+    self.navigation.rightBarButtonItem.enabled = YES;
     return NO;
 }
 

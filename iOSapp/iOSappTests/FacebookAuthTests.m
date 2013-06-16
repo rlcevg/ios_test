@@ -135,7 +135,7 @@ describe(@"ProfileViewController", ^{
                 [delegate shouldNotBeNil];
                 [[delegate should] equal:viewController];
                 [[delegate should] respondToSelector:@selector(loginViewShowingLoggedOutUser:)];
-                [[delegate should] respondToSelector:@selector(loginView:handleError:)];
+//                [[delegate should] respondToSelector:@selector(loginView:handleError:)];
             });
 
             xit(@"is a black box and we dont want to get into FBLoginView implementation", NULL);
