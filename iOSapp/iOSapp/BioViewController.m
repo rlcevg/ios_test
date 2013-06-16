@@ -118,8 +118,9 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
 - (BOOL)textViewShouldBeginEditing:(RLCTextView *)textView
 {
-    textView.editing = YES;
-    return YES;
+    BOOL result = self.person != nil;
+    textView.editing = result;
+    return result;
 }
 
 #pragma mark - RLCTextViewDelegate protocol

@@ -11,13 +11,18 @@
 		3E0C5C9B1764B7FE001B75DD /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9A1764B7FE001B75DD /* Security.framework */; };
 		3E0C5C9D1764B80B001B75DD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9C1764B80B001B75DD /* Social.framework */; };
 		3E0C5C9F1764B84B001B75DD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9E1764B84B001B75DD /* AdSupport.framework */; };
+		3E3082DB176C8E6F003A55C0 /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3082DA176C8E67003A55C0 /* 112-group.png */; };
 		3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3252A01769B7A800D72C22 /* RLCTextView.m */; };
 		3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */; };
 		3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AC31D176C33B200AD513A /* EditUserDataTest.m */; };
 		3E4B887017676D62004195F8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4B886F17676D62004195F8 /* libsqlite3.dylib */; };
+		3E4C272C176DEE5100F4DB06 /* FriendsListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C272B176DEE5100F4DB06 /* FriendsListTest.m */; };
+		3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */; };
 		3E5F2A211768EF18000B0583 /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1E1768EF0D000B0583 /* 96-book.png */; };
 		3E5F2A221768EF18000B0583 /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */; };
 		3E5F2A231768EF18000B0583 /* 135-hockeymask.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A201768EF0D000B0583 /* 135-hockeymask.png */; };
+		3E685EA7176DC8C2003BEC3C /* Network Utility.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E685EA6176DC8C2003BEC3C /* Network Utility.png */; };
+		3E685EA9176DC8C7003BEC3C /* Network Utility Retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E685EA8176DC8C7003BEC3C /* Network Utility Retina.png */; };
 		3E9FCC28175FC20500E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC27175FC20500E005E9 /* Person.m */; };
 		3E9FCC32175FCA5800E005E9 /* iOSapp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */; };
 		3EB7757F175E7C0A00D0DD6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB7757E175E7C0A00D0DD6F /* UIKit.framework */; };
@@ -68,15 +73,21 @@
 		3E0C5C9A1764B7FE001B75DD /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3E0C5C9C1764B80B001B75DD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3E0C5C9E1764B84B001B75DD /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		3E3082DA176C8E67003A55C0 /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
 		3E32529F1769B7A800D72C22 /* RLCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCTextView.h; sourceTree = "<group>"; };
 		3E3252A01769B7A800D72C22 /* RLCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCTextView.m; sourceTree = "<group>"; };
 		3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
 		3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactCell.m; sourceTree = "<group>"; };
 		3E4AC31D176C33B200AD513A /* EditUserDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserDataTest.m; sourceTree = "<group>"; };
 		3E4B886F17676D62004195F8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		3E4C272B176DEE5100F4DB06 /* FriendsListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsListTest.m; sourceTree = "<group>"; };
+		3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		3E5F2A1E1768EF0D000B0583 /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
 		3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
 		3E5F2A201768EF0D000B0583 /* 135-hockeymask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "135-hockeymask.png"; sourceTree = "<group>"; };
+		3E685EA6176DC8C2003BEC3C /* Network Utility.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Network Utility.png"; path = "../../Network Utility.png"; sourceTree = "<group>"; };
+		3E685EA8176DC8C7003BEC3C /* Network Utility Retina.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Network Utility Retina.png"; path = "../../Network Utility Retina.png"; sourceTree = "<group>"; };
 		3E9FCC26175FC20500E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3E9FCC27175FC20500E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iOSapp.sqlite; sourceTree = "<group>"; };
@@ -160,6 +171,9 @@
 		3E5F2A1B1768EB40000B0583 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3E685EA8176DC8C7003BEC3C /* Network Utility Retina.png */,
+				3E685EA6176DC8C2003BEC3C /* Network Utility.png */,
+				3E3082DA176C8E67003A55C0 /* 112-group.png */,
 				3EE4B06D176A6A62005D5412 /* fb_blank_profile_square.png */,
 				3E5F2A1E1768EF0D000B0583 /* 96-book.png */,
 				3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */,
@@ -211,6 +225,8 @@
 		3EB77586175E7C0A00D0DD6F /* iOSapp */ = {
 			isa = PBXGroup;
 			children = (
+				3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */,
+				3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */,
 				3E5F2A1B1768EB40000B0583 /* Resources */,
 				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
 				3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */,
@@ -265,6 +281,7 @@
 				3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */,
 				3EF6F9CA176329D0005A5185 /* FacebookAuthTests.m */,
 				3E4AC31D176C33B200AD513A /* EditUserDataTest.m */,
+				3E4C272B176DEE5100F4DB06 /* FriendsListTest.m */,
 			);
 			path = iOSappTests;
 			sourceTree = "<group>";
@@ -355,6 +372,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E3082DB176C8E6F003A55C0 /* 112-group.png in Resources */,
 				3EE4B06E176A6A6B005D5412 /* fb_blank_profile_square.png in Resources */,
 				3E5F2A211768EF18000B0583 /* 96-book.png in Resources */,
 				3E5F2A221768EF18000B0583 /* 123-id-card.png in Resources */,
@@ -365,6 +383,8 @@
 				3EB77597175E7C0B00D0DD6F /* Default-568h@2x.png in Resources */,
 				3EB7759A175E7C0B00D0DD6F /* MainStoryboard.storyboard in Resources */,
 				3E9FCC32175FCA5800E005E9 /* iOSapp.sqlite in Resources */,
+				3E685EA7176DC8C2003BEC3C /* Network Utility.png in Resources */,
+				3E685EA9176DC8C7003BEC3C /* Network Utility Retina.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,6 +489,7 @@
 				3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */,
 				3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */,
 				3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */,
+				3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +500,7 @@
 				3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */,
 				3EF6F9CB176329D0005A5185 /* FacebookAuthTests.m in Sources */,
 				3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */,
+				3E4C272C176DEE5100F4DB06 /* FriendsListTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

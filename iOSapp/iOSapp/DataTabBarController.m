@@ -130,9 +130,9 @@
                  }
                  self.person = person;
 
+                 [self tabBarController:self shouldSelectViewController:self.selectedViewController];
                  ProfileViewController *profileController = self.viewControllers[0];
-                 [profileController prepareData:person];
-                 [profileController populateUserDetails];
+                 self.person.photo = profileController.photoView.image;
                  self.fbProfilePictureView = [[RLCProfilePictureView alloc] initWithImageView:profileController.photoView];
                  [self.fbProfilePictureView addObserver:self forKeyPath:@"imageView.image" options:NSKeyValueObservingOptionNew context:NULL];
                  self.fbProfilePictureView.profileID = user.id;
@@ -150,8 +150,12 @@
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
-    ProfileViewController *profileController = self.viewControllers[0];
-    [profileController populateUserPhoto];
+    if (self.selectedIndex == 0) {
+        ProfileViewController *profileController = self.viewControllers[0];
+        if (profileController.isViewLoaded) {
+            [profileController populateUserPhoto];
+        }
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

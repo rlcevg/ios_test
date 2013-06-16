@@ -73,7 +73,7 @@ describe(@"ProfileViewController", ^{
                 NSString *test_str = [[NSString alloc] initWithFormat:@"%@%@", TEST_USER_NAME, TEST_USER_NAME];
                 [viewController textFieldDidBeginEditing:viewController.nameText];
                 viewController.nameText.text = test_str;
-                [viewController performSelector:@selector(responderCancel)];
+                [viewController performSelector:@selector(activeFieldCancel)];
                 [[person.name should] equal:TEST_USER_NAME];
                 [[viewController.nameText.text should] equal:TEST_USER_NAME];
             });
@@ -121,7 +121,7 @@ describe(@"ProfileViewController", ^{
                 NSString *test_str = [[NSString alloc] initWithFormat:@"%@%@", TEST_USER_SURNAME, TEST_USER_SURNAME];
                 [viewController textFieldDidBeginEditing:viewController.surnameText];
                 viewController.surnameText.text = test_str;
-                [viewController performSelector:@selector(responderCancel)];
+                [viewController performSelector:@selector(activeFieldCancel)];
                 [[person.surname should] equal:TEST_USER_SURNAME];
                 [[viewController.surnameText.text should] equal:TEST_USER_SURNAME];
             });

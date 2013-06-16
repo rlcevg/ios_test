@@ -97,7 +97,7 @@ describe(@"DataTabBarController", ^{
         });
 
         it(@"has several child view controllers", ^{
-            [[theValue([dataTab.viewControllers count]) should] equal:theValue(3)];
+            [[theValue([dataTab.viewControllers count]) should] equal:theValue(4)];
         });
 
         it(@"has strict tab order", ^{

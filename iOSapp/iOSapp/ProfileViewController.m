@@ -14,7 +14,7 @@
 
 @property (strong, nonatomic) Person *person;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
-@property (weak, nonatomic) UITextField *responder;
+@property (weak, nonatomic) UITextField *activeField;
 @property (assign, nonatomic) CGRect keyboardFrame;
 @property (strong, nonatomic) NSString *undoText;
 @property (assign, nonatomic, getter=isRotating) BOOL rotating;
@@ -88,7 +88,7 @@
 
 - (void)keyboardPopup
 {
-    CGRect textFieldFrame = [self.view convertRect:self.responder.frame fromView:self.responder.superview];
+    CGRect textFieldFrame = [self.view convertRect:self.activeField.frame fromView:self.activeField.superview];
     CGFloat deltaY = textFieldFrame.origin.y - self.keyboardFrame.origin.y + textFieldFrame.size.height;
     if (deltaY > 0) {
         CGRect viewFrame = self.view.frame;
@@ -103,10 +103,10 @@
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [[event allTouches] anyObject];
-    if (self.responder && (self.responder != touch.view)) {
+    if (self.activeField && (self.activeField != touch.view)) {
         // Cancel text editing
-        [self responderCancel];
-    } else if (!self.responder && self.photoView.superview == touch.view) {
+        [self activeFieldCancel];
+    } else if (!self.activeField && self.photoView.superview == touch.view && self.person) {
         // Show image picker
         [self presentViewController:self.imagePicker animated:YES completion:NULL];
     }
@@ -163,7 +163,7 @@
         [self updateViewLayout];
     } completion:^(BOOL finished){
         self.rotating = NO;
-        if (self.responder) {
+        if (self.activeField) {
             [self keyboardPopup];
         }
     }];
@@ -173,7 +173,9 @@
 {
     if (self.person) {
         [self populateUserDetails];
-        [self populateUserPhoto];
+        if (self.person.photo) {
+            [self populateUserPhoto];
+        }
     } else {
         [self.spinner startAnimating];
     }
@@ -234,63 +236,22 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
-- (void)loginView:(FBLoginView *)loginView handleError:(NSError *)error
-{
-    NSString *alertMessage, *alertTitle;
-
-    // Facebook SDK * error handling *
-    // Error handling is an important part of providing a good user experience.
-    // Since this sample uses the FBLoginView, this delegate will respond to
-    // login failures, or other failures that have closed the session (such
-    // as a token becoming invalid).
-
-    if (error.fberrorShouldNotifyUser) {
-        // If the SDK has a message for the user, surface it. This conveniently
-        // handles cases like password change or iOS6 app slider state.
-        alertTitle = @"Something Went Wrong";
-        alertMessage = error.fberrorUserMessage;
-    } else if (error.fberrorCategory == FBErrorCategoryAuthenticationReopenSession) {
-        // It is important to handle session closures as mentioned. You can inspect
-        // the error for more context but this sample generically notifies the user.
-        alertTitle = @"Session Error";
-        alertMessage = @"Your current session is no longer valid. Please log in again.";
-    } else if (error.fberrorCategory == FBErrorCategoryUserCancelled) {
-        // The user has cancelled a login. You can inspect the error
-        // for more context. For this sample, we will simply ignore it.
-        NSLog(@"user cancelled login");
-    } else {
-        // For simplicity, this sample treats other errors blindly, but you should
-        // refer to https://developers.facebook.com/docs/technical-guides/iossdk/errors/ for more information.
-        alertTitle  = @"Unknown Error";
-        alertMessage = @"Error. Please try again later.";
-        NSLog(@"Unexpected error:%@", error);
-    }
-
-    if (alertMessage) {
-        [[[UIAlertView alloc] initWithTitle:alertTitle
-                                    message:alertMessage
-                                   delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil] show];
-    }
-}
-
 #pragma mark - UITextFieldDelegate protocol
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    BOOL result = !self.responder;
+    BOOL result = !self.activeField;
     if (result == NO) {
-        [self responderCancel];
+        [self activeFieldCancel];
     } else {
-        result &= ![textField.text isEqualToString:@"Loading..."];
+        result = result && self.person;
     }
     return result;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.responder = textField;
+    self.activeField = textField;
     self.undoText = textField.text;
     if (textField == self.birthdateText) {
         self.birthdateText.date = self.person.birthdate;
@@ -298,10 +259,15 @@
     }
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.activeField = nil;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     if (textField.text.length > 2 && textField.text.length <= 40) {
-        if ([self responderShouldSave]) {
+        if ([self activeFieldShouldSave]) {
             if (textField == self.nameText) {
                 self.person.name = textField.text;
             } else if (textField == self.surnameText) {
@@ -315,24 +281,21 @@
                                   delegate:nil
                          cancelButtonTitle:@"Ok"
                          otherButtonTitles:nil] show];
-        [self responderCancel];
     }
     return NO;
 }
 
-- (BOOL)responderShouldSave
+- (BOOL)activeFieldShouldSave
 {
-    [self.responder resignFirstResponder];
-    BOOL result = ![self.undoText isEqualToString:self.responder.text];
-    self.responder = nil;
+    BOOL result = ![self.undoText isEqualToString:self.activeField.text];
+    [self.activeField resignFirstResponder];
     return result;
 }
 
-- (void)responderCancel
+- (void)activeFieldCancel
 {
-    [self.responder resignFirstResponder];
-    self.responder.text = self.undoText;
-    self.responder = nil;
+    self.activeField.text = self.undoText;
+    [self.activeField resignFirstResponder];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
@@ -359,7 +322,7 @@
 
 - (void)dateFieldWillSave:(RLCDateField *)dateField
 {
-    if ([self responderShouldSave]) {
+    if ([self activeFieldShouldSave]) {
         self.person.birthdate = dateField.date;
         [(DataTabBarController *)self.parentViewController saveContext];
     }
@@ -367,7 +330,7 @@
 
 - (void)dateFieldWillCancel:(RLCDateField *)dateField
 {
-    [self responderCancel];
+    [self activeFieldCancel];
 }
 
 - (void)dateFieldDidChangeDate:(RLCDateField *)dateField
