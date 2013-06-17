@@ -25,6 +25,7 @@
 		3E685EA9176DC8C7003BEC3C /* Network Utility Retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E685EA8176DC8C7003BEC3C /* Network Utility Retina.png */; };
 		3E9FCC28175FC20500E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC27175FC20500E005E9 /* Person.m */; };
 		3E9FCC32175FCA5800E005E9 /* iOSapp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */; };
+		3EAD0CAF176F659100DBBC5E /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0CAE176F659100DBBC5E /* Friend.m */; };
 		3EB7757F175E7C0A00D0DD6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB7757E175E7C0A00D0DD6F /* UIKit.framework */; };
 		3EB77581175E7C0A00D0DD6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77580175E7C0A00D0DD6F /* Foundation.framework */; };
 		3EB77583175E7C0A00D0DD6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77582175E7C0A00D0DD6F /* CoreGraphics.framework */; };
@@ -91,6 +92,8 @@
 		3E9FCC26175FC20500E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3E9FCC27175FC20500E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iOSapp.sqlite; sourceTree = "<group>"; };
+		3EAD0CAD176F659100DBBC5E /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		3EAD0CAE176F659100DBBC5E /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		3EB7757B175E7C0A00D0DD6F /* iOSapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB7757E175E7C0A00D0DD6F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3EB77580175E7C0A00D0DD6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -225,8 +228,6 @@
 		3EB77586175E7C0A00D0DD6F /* iOSapp */ = {
 			isa = PBXGroup;
 			children = (
-				3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */,
-				3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */,
 				3E5F2A1B1768EB40000B0583 /* Resources */,
 				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
 				3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */,
@@ -239,9 +240,11 @@
 				3EE8110E175F3F6E00D446DD /* BioViewController.m */,
 				3EB7759E175E7C0B00D0DD6F /* ContactsViewController.h */,
 				3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */,
+				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
+				3EAD0CAD176F659100DBBC5E /* Friend.h */,
+				3EAD0CAE176F659100DBBC5E /* Friend.m */,
 				3E9FCC26175FC20500E005E9 /* Person.h */,
 				3E9FCC27175FC20500E005E9 /* Person.m */,
-				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
 				3EE8111A175F60C900D446DD /* Contact.h */,
 				3EE8111B175F60C900D446DD /* Contact.m */,
 				3EE81114175F535C00D446DD /* DataTabBarController.h */,
@@ -256,6 +259,8 @@
 				3EE4B069176A502C005D5412 /* RLCDateField.m */,
 				3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */,
 				3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */,
+				3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */,
+				3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */,
 			);
 			path = iOSapp;
 			sourceTree = "<group>";
@@ -490,6 +495,7 @@
 				3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */,
 				3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */,
 				3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */,
+				3EAD0CAF176F659100DBBC5E /* Friend.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
