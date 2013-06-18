@@ -12,10 +12,10 @@
 
 @interface Friend : NSManagedObject
 
-@property (nonatomic, retain) NSString * avatarUrl;
-@property (nonatomic, retain) NSString * firstName;
-@property (nonatomic, retain) NSString * lastName;
-@property (nonatomic, retain) NSNumber * priority;
-@property (nonatomic, retain) NSString * uid;
+@property (nonatomic, retain) NSString *avatarUrl;
+@property (nonatomic, retain) NSString *firstName;
+@property (nonatomic, retain) NSString *lastName;
+@property (nonatomic, retain) NSNumber *priority;
+@property (nonatomic, retain) NSString *uid;
 
 @end
