@@ -16,6 +16,7 @@
 #endif
 @class Contact;
 
+
 @interface Person : NSManagedObject
 
 @property (nonatomic, retain) NSString *bio;

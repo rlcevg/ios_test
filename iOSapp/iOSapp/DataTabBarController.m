@@ -91,8 +91,19 @@
 {
     Person *person = self.person;
     if (person) {
-        [self.managedObjectContext deleteObject:person];
+        NSManagedObjectContext *context = self.managedObjectContext;
+        [context deleteObject:person];
         self.person = nil;
+
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        NSError *error;
+        NSArray *items = [context executeFetchRequest:fetchRequest error:&error];
+        for (NSManagedObject *managedObject in items) {
+            [context deleteObject:managedObject];
+        }
+        [context save:&error];
     }
     self.loading = YES;
 }
