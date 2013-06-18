@@ -125,7 +125,7 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
 
 #pragma mark - RLCTextViewDelegate protocol
 
-- (void)textViewWillSave:(RLCTextView *)textView
+- (void)textViewConfirmSave:(RLCTextView *)textView
 {
     self.pressedButton = BIOVIEW_SAVE_BUTTON;
     [[[UIActionSheet alloc] initWithTitle:@"Are you sure?"
@@ -135,7 +135,7 @@ typedef enum {BIOVIEW_SAVE_BUTTON, BIOVIEW_CANCEL_BUTTON} BIOVIEW_BUTTONS;
                         otherButtonTitles:nil] showInView:self.tabBarController.tabBar.superview];
 }
 
-- (void)textViewWillCancel:(RLCTextView *)textView
+- (void)textViewConfirmCancel:(RLCTextView *)textView
 {
     self.pressedButton = BIOVIEW_CANCEL_BUTTON;
     UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Are you sure?"

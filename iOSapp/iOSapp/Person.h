@@ -9,7 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+#if TARGET_OS_IPHONE
+#else
+#import <Quartz/Quartz.h>
+#define UIImage NSImage
+#endif
 @class Contact;
+
 
 @interface Person : NSManagedObject
 

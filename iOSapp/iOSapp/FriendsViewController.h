@@ -2,12 +2,19 @@
 //  FriendsViewController.h
 //  iOSapp
 //
-//  Created by Evgenij on 6/15/13.
+//  Created by Evgenij on 6/18/13.
 //  Copyright (c) 2013 Home. All rights reserved.
 //
 
-#import "FBFriendPickerViewController.h"
+#import <UIKit/UIKit.h>
+#import "Facebook.h"
 
-@interface FriendsViewController : FBFriendPickerViewController <FBViewControllerDelegate>
+@interface FriendsViewController : UIViewController </*FBRequestDelegate, */UITableViewDelegate, UITableViewDataSource>
+
+@property (assign, nonatomic) NSInteger index;
+@property (weak, nonatomic) UITextField *activeField;
+
+- (void)updateView;
+- (void)saveContext;
 
 @end

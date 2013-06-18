@@ -18,7 +18,7 @@
 @property (strong, nonatomic) NSMutableArray *contacts;
 @property (strong, nonatomic) Person *person;
 @property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
-@property (weak, nonatomic) UITextField *responder;
+@property (weak, nonatomic) UITextField *activeField;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
@@ -167,20 +167,23 @@
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    return !self.tableView.editing && !self.responder;
+    return !self.tableView.editing && !self.activeField;
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    self.responder = textField;
+    self.activeField = textField;
     self.navigation.leftBarButtonItem.enabled = NO;
     self.navigation.rightBarButtonItem.enabled = NO;
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    self.activeField = nil;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    self.responder = nil;
     ContactCell *cell = (ContactCell *)textField.superview.superview;
     switch (textField.tag) {
         case 1001:
@@ -195,6 +198,7 @@
     [self saveContext];
     self.navigation.leftBarButtonItem.enabled = YES;
     self.navigation.rightBarButtonItem.enabled = YES;
+    [textField resignFirstResponder];
     return NO;
 }
 

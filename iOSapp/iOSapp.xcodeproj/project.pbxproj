@@ -12,12 +12,13 @@
 		3E0C5C9D1764B80B001B75DD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9C1764B80B001B75DD /* Social.framework */; };
 		3E0C5C9F1764B84B001B75DD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9E1764B84B001B75DD /* AdSupport.framework */; };
 		3E3082DB176C8E6F003A55C0 /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3082DA176C8E67003A55C0 /* 112-group.png */; };
+		3E313C681770740800E5F3AA /* FriendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C671770740800E5F3AA /* FriendCell.m */; };
+		3E313C6E1770780000E5F3AA /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C6D1770780000E5F3AA /* FriendsViewController.m */; };
 		3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3252A01769B7A800D72C22 /* RLCTextView.m */; };
 		3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */; };
 		3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AC31D176C33B200AD513A /* EditUserDataTest.m */; };
 		3E4B887017676D62004195F8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4B886F17676D62004195F8 /* libsqlite3.dylib */; };
 		3E4C272C176DEE5100F4DB06 /* FriendsListTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C272B176DEE5100F4DB06 /* FriendsListTest.m */; };
-		3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */; };
 		3E5F2A211768EF18000B0583 /* 96-book.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1E1768EF0D000B0583 /* 96-book.png */; };
 		3E5F2A221768EF18000B0583 /* 123-id-card.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */; };
 		3E5F2A231768EF18000B0583 /* 135-hockeymask.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E5F2A201768EF0D000B0583 /* 135-hockeymask.png */; };
@@ -45,6 +46,7 @@
 		3EB775B6175E7C0B00D0DD6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775B4175E7C0B00D0DD6F /* InfoPlist.strings */; };
 		3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */; };
 		3EDF09181766622D003E2BEA /* RLCProfilePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */; };
+		3EE1974E176F851C00E08697 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1974D176F851C00E08697 /* Friend.m */; };
 		3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4B069176A502C005D5412 /* RLCDateField.m */; };
 		3EE4B06E176A6A6B005D5412 /* fb_blank_profile_square.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4B06D176A6A62005D5412 /* fb_blank_profile_square.png */; };
 		3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110B175F3EC600D446DD /* ProfileViewController.m */; };
@@ -74,6 +76,10 @@
 		3E0C5C9C1764B80B001B75DD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3E0C5C9E1764B84B001B75DD /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		3E3082DA176C8E67003A55C0 /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
+		3E313C661770740800E5F3AA /* FriendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendCell.h; sourceTree = "<group>"; };
+		3E313C671770740800E5F3AA /* FriendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendCell.m; sourceTree = "<group>"; };
+		3E313C6C1770780000E5F3AA /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
+		3E313C6D1770780000E5F3AA /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		3E32529F1769B7A800D72C22 /* RLCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCTextView.h; sourceTree = "<group>"; };
 		3E3252A01769B7A800D72C22 /* RLCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCTextView.m; sourceTree = "<group>"; };
 		3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
@@ -81,8 +87,6 @@
 		3E4AC31D176C33B200AD513A /* EditUserDataTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditUserDataTest.m; sourceTree = "<group>"; };
 		3E4B886F17676D62004195F8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3E4C272B176DEE5100F4DB06 /* FriendsListTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsListTest.m; sourceTree = "<group>"; };
-		3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FriendsViewController.h; sourceTree = "<group>"; };
-		3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FriendsViewController.m; sourceTree = "<group>"; };
 		3E5F2A1E1768EF0D000B0583 /* 96-book.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "96-book.png"; sourceTree = "<group>"; };
 		3E5F2A1F1768EF0D000B0583 /* 123-id-card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "123-id-card.png"; sourceTree = "<group>"; };
 		3E5F2A201768EF0D000B0583 /* 135-hockeymask.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "135-hockeymask.png"; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 		3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
 		3EDF09161766622D003E2BEA /* RLCProfilePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCProfilePictureView.h; sourceTree = "<group>"; };
 		3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCProfilePictureView.m; sourceTree = "<group>"; };
+		3EE1974C176F851C00E08697 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		3EE1974D176F851C00E08697 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		3EE4B068176A502C005D5412 /* RLCDateField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCDateField.h; sourceTree = "<group>"; };
 		3EE4B069176A502C005D5412 /* RLCDateField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCDateField.m; sourceTree = "<group>"; };
 		3EE4B06D176A6A62005D5412 /* fb_blank_profile_square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_blank_profile_square.png; sourceTree = "<group>"; };
@@ -225,8 +231,6 @@
 		3EB77586175E7C0A00D0DD6F /* iOSapp */ = {
 			isa = PBXGroup;
 			children = (
-				3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */,
-				3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */,
 				3E5F2A1B1768EB40000B0583 /* Resources */,
 				3EB77587175E7C0A00D0DD6F /* Supporting Files */,
 				3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */,
@@ -239,11 +243,13 @@
 				3EE8110E175F3F6E00D446DD /* BioViewController.m */,
 				3EB7759E175E7C0B00D0DD6F /* ContactsViewController.h */,
 				3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */,
+				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
 				3E9FCC26175FC20500E005E9 /* Person.h */,
 				3E9FCC27175FC20500E005E9 /* Person.m */,
-				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
 				3EE8111A175F60C900D446DD /* Contact.h */,
 				3EE8111B175F60C900D446DD /* Contact.m */,
+				3EE1974C176F851C00E08697 /* Friend.h */,
+				3EE1974D176F851C00E08697 /* Friend.m */,
 				3EE81114175F535C00D446DD /* DataTabBarController.h */,
 				3EE81115175F535C00D446DD /* DataTabBarController.m */,
 				3EF6F9CC17632ECE005A5185 /* LoginViewController.h */,
@@ -256,6 +262,10 @@
 				3EE4B069176A502C005D5412 /* RLCDateField.m */,
 				3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */,
 				3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */,
+				3E313C6C1770780000E5F3AA /* FriendsViewController.h */,
+				3E313C6D1770780000E5F3AA /* FriendsViewController.m */,
+				3E313C661770740800E5F3AA /* FriendCell.h */,
+				3E313C671770740800E5F3AA /* FriendCell.m */,
 			);
 			path = iOSapp;
 			sourceTree = "<group>";
@@ -489,7 +499,9 @@
 				3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */,
 				3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */,
 				3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */,
-				3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */,
+				3EE1974E176F851C00E08697 /* Friend.m in Sources */,
+				3E313C681770740800E5F3AA /* FriendCell.m in Sources */,
+				3E313C6E1770780000E5F3AA /* FriendsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

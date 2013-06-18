@@ -53,7 +53,7 @@
     [self willAccessValueForKey:@"photo"];
     NSImage *image = [[NSImage alloc] initWithData:[self primitiveValueForKey:@"photo"]];
     [self didAccessValueForKey:@"photo"];
-    return [image autorelease];
+    return image;
 }
 
 #endif

@@ -71,15 +71,15 @@
 
 - (void)save
 {
-    if ([self.editDelegate respondsToSelector:@selector(textViewWillSave:)]) {
-        [self.editDelegate textViewWillSave:self];
+    if ([self.editDelegate respondsToSelector:@selector(textViewConfirmSave:)]) {
+        [self.editDelegate textViewConfirmSave:self];
     }
 }
 
 - (void)cancel
 {
-    if ([self.editDelegate respondsToSelector:@selector(textViewWillCancel:)]) {
-        [self.editDelegate textViewWillCancel:self];
+    if ([self.editDelegate respondsToSelector:@selector(textViewConfirmCancel:)]) {
+        [self.editDelegate textViewConfirmCancel:self];
     }
 }
 
