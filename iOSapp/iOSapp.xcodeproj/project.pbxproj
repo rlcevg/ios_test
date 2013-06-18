@@ -12,6 +12,8 @@
 		3E0C5C9D1764B80B001B75DD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9C1764B80B001B75DD /* Social.framework */; };
 		3E0C5C9F1764B84B001B75DD /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E0C5C9E1764B84B001B75DD /* AdSupport.framework */; };
 		3E3082DB176C8E6F003A55C0 /* 112-group.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E3082DA176C8E67003A55C0 /* 112-group.png */; };
+		3E313C6217705AF100E5F3AA /* FrTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C6117705AF100E5F3AA /* FrTextField.m */; };
+		3E313C651770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C641770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.m */; };
 		3E3252A11769B7A800D72C22 /* RLCTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3252A01769B7A800D72C22 /* RLCTextView.m */; };
 		3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */; };
 		3E4AC31E176C33B200AD513A /* EditUserDataTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E4AC31D176C33B200AD513A /* EditUserDataTest.m */; };
@@ -25,7 +27,6 @@
 		3E685EA9176DC8C7003BEC3C /* Network Utility Retina.png in Resources */ = {isa = PBXBuildFile; fileRef = 3E685EA8176DC8C7003BEC3C /* Network Utility Retina.png */; };
 		3E9FCC28175FC20500E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC27175FC20500E005E9 /* Person.m */; };
 		3E9FCC32175FCA5800E005E9 /* iOSapp.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */; };
-		3EAD0CAF176F659100DBBC5E /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EAD0CAE176F659100DBBC5E /* Friend.m */; };
 		3EB7757F175E7C0A00D0DD6F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB7757E175E7C0A00D0DD6F /* UIKit.framework */; };
 		3EB77581175E7C0A00D0DD6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77580175E7C0A00D0DD6F /* Foundation.framework */; };
 		3EB77583175E7C0A00D0DD6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EB77582175E7C0A00D0DD6F /* CoreGraphics.framework */; };
@@ -46,6 +47,8 @@
 		3EB775B6175E7C0B00D0DD6F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3EB775B4175E7C0B00D0DD6F /* InfoPlist.strings */; };
 		3EB775B9175E7C0B00D0DD6F /* iOSappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */; };
 		3EDF09181766622D003E2BEA /* RLCProfilePictureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */; };
+		3EE1974E176F851C00E08697 /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE1974D176F851C00E08697 /* Friend.m */; };
+		3EE19751176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE19750176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.m */; };
 		3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE4B069176A502C005D5412 /* RLCDateField.m */; };
 		3EE4B06E176A6A6B005D5412 /* fb_blank_profile_square.png in Resources */ = {isa = PBXBuildFile; fileRef = 3EE4B06D176A6A62005D5412 /* fb_blank_profile_square.png */; };
 		3EE8110C175F3EC600D446DD /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8110B175F3EC600D446DD /* ProfileViewController.m */; };
@@ -75,6 +78,10 @@
 		3E0C5C9C1764B80B001B75DD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		3E0C5C9E1764B84B001B75DD /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		3E3082DA176C8E67003A55C0 /* 112-group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "112-group.png"; sourceTree = "<group>"; };
+		3E313C6017705AF100E5F3AA /* FrTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrTextField.h; sourceTree = "<group>"; };
+		3E313C6117705AF100E5F3AA /* FrTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrTextField.m; sourceTree = "<group>"; };
+		3E313C631770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBGraphObjectPagingLoader+Priority.h"; sourceTree = "<group>"; };
+		3E313C641770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBGraphObjectPagingLoader+Priority.m"; sourceTree = "<group>"; };
 		3E32529F1769B7A800D72C22 /* RLCTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCTextView.h; sourceTree = "<group>"; };
 		3E3252A01769B7A800D72C22 /* RLCTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCTextView.m; sourceTree = "<group>"; };
 		3E3C6CD7176B7BCE001BFF62 /* ContactCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactCell.h; sourceTree = "<group>"; };
@@ -92,8 +99,6 @@
 		3E9FCC26175FC20500E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3E9FCC27175FC20500E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3E9FCC31175FCA5800E005E9 /* iOSapp.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = iOSapp.sqlite; sourceTree = "<group>"; };
-		3EAD0CAD176F659100DBBC5E /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
-		3EAD0CAE176F659100DBBC5E /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
 		3EB7757B175E7C0A00D0DD6F /* iOSapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EB7757E175E7C0A00D0DD6F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3EB77580175E7C0A00D0DD6F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -119,6 +124,10 @@
 		3EB775B8175E7C0B00D0DD6F /* iOSappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iOSappTests.m; sourceTree = "<group>"; };
 		3EDF09161766622D003E2BEA /* RLCProfilePictureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCProfilePictureView.h; sourceTree = "<group>"; };
 		3EDF09171766622D003E2BEA /* RLCProfilePictureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCProfilePictureView.m; sourceTree = "<group>"; };
+		3EE1974C176F851C00E08697 /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		3EE1974D176F851C00E08697 /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		3EE1974F176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FBGraphObjectTableDataSource+PriorityField.h"; sourceTree = "<group>"; };
+		3EE19750176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FBGraphObjectTableDataSource+PriorityField.m"; sourceTree = "<group>"; };
 		3EE4B068176A502C005D5412 /* RLCDateField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RLCDateField.h; sourceTree = "<group>"; };
 		3EE4B069176A502C005D5412 /* RLCDateField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RLCDateField.m; sourceTree = "<group>"; };
 		3EE4B06D176A6A62005D5412 /* fb_blank_profile_square.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fb_blank_profile_square.png; sourceTree = "<group>"; };
@@ -241,12 +250,12 @@
 				3EB7759E175E7C0B00D0DD6F /* ContactsViewController.h */,
 				3EB7759F175E7C0B00D0DD6F /* ContactsViewController.m */,
 				3EB7759B175E7C0B00D0DD6F /* iOSapp.xcdatamodeld */,
-				3EAD0CAD176F659100DBBC5E /* Friend.h */,
-				3EAD0CAE176F659100DBBC5E /* Friend.m */,
 				3E9FCC26175FC20500E005E9 /* Person.h */,
 				3E9FCC27175FC20500E005E9 /* Person.m */,
 				3EE8111A175F60C900D446DD /* Contact.h */,
 				3EE8111B175F60C900D446DD /* Contact.m */,
+				3EE1974C176F851C00E08697 /* Friend.h */,
+				3EE1974D176F851C00E08697 /* Friend.m */,
 				3EE81114175F535C00D446DD /* DataTabBarController.h */,
 				3EE81115175F535C00D446DD /* DataTabBarController.m */,
 				3EF6F9CC17632ECE005A5185 /* LoginViewController.h */,
@@ -261,6 +270,12 @@
 				3E3C6CD8176B7BCE001BFF62 /* ContactCell.m */,
 				3E4C272D176DF19D00F4DB06 /* FriendsViewController.h */,
 				3E4C272E176DF19D00F4DB06 /* FriendsViewController.m */,
+				3EE1974F176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.h */,
+				3EE19750176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.m */,
+				3E313C6017705AF100E5F3AA /* FrTextField.h */,
+				3E313C6117705AF100E5F3AA /* FrTextField.m */,
+				3E313C631770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.h */,
+				3E313C641770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.m */,
 			);
 			path = iOSapp;
 			sourceTree = "<group>";
@@ -495,7 +510,10 @@
 				3EE4B06A176A502C005D5412 /* RLCDateField.m in Sources */,
 				3E3C6CD9176B7BCE001BFF62 /* ContactCell.m in Sources */,
 				3E4C272F176DF19D00F4DB06 /* FriendsViewController.m in Sources */,
-				3EAD0CAF176F659100DBBC5E /* Friend.m in Sources */,
+				3EE1974E176F851C00E08697 /* Friend.m in Sources */,
+				3EE19751176F8A8200E08697 /* FBGraphObjectTableDataSource+PriorityField.m in Sources */,
+				3E313C6217705AF100E5F3AA /* FrTextField.m in Sources */,
+				3E313C651770656D00E5F3AA /* FBGraphObjectPagingLoader+Priority.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

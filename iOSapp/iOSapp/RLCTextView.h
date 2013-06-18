@@ -11,8 +11,8 @@
 
 @protocol RLCTextViewDelegate <NSObject>
 
-- (void)textViewWillSave:(RLCTextView *)textView;
-- (void)textViewWillCancel:(RLCTextView *)textView;
+- (void)textViewConfirmSave:(RLCTextView *)textView;
+- (void)textViewConfirmCancel:(RLCTextView *)textView;
 
 @end
 

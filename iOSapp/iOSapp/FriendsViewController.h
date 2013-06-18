@@ -8,6 +8,6 @@
 
 #import "FBFriendPickerViewController.h"
 
-@interface FriendsViewController : FBFriendPickerViewController <FBViewControllerDelegate>
+@interface FriendsViewController : FBFriendPickerViewController <FBFriendPickerDelegate>
 
 @end

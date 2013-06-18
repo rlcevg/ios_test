@@ -11,6 +11,11 @@
 #import "FBGraphObjectTableDataSource.h"
 #import "Friend.h"
 #import "DataTabBarController.h"
+#import "RLCAppDelegate.h"
+#import "FBGraphObjectPagingLoader.h"
+#import "FBGraphObjectTableCell.h"
+#import "FBGraphObjectTableDataSource+PriorityField.h"
+#import "FBUtility.h"
 
 #define FRIEND_DEFAULT_PRIORITY 0
 
@@ -20,13 +25,17 @@
 @property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic, readonly) NSSet *priorities;
 @property (strong, nonatomic) NSNumber *activePriority;
+@property (strong, nonatomic, readonly) NSArray *friends;
+@property (assign, nonatomic) BOOL dataLoaded;
+@property (strong, atomic, readonly) NSManagedObjectContext *backgroundManagedObjectContext;
 
 @end
 
 
 @implementation FriendsViewController
 
-@synthesize managedObjectContext = _managedObjectContext;
+@synthesize managedObjectContext = _managedObjectContext,
+            backgroundManagedObjectContext = _backgroundManagedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -61,7 +70,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self loadData];
+    if (self.friends.count == 0) {
+        [self loadData];
+        self.dataLoaded = NO;
+    } else {
+        [self loadSavedData];
+    }
     [self clearSelection];
 }
 
@@ -78,144 +92,6 @@
         }
         [app openURL:url];
     }
-}
-/*
-- (void)retrieveTestUsersForApp
-{
-    // We need three pieces of data: id, access_token, and name (which we use to
-    // encode permissions). We get access_token from the test_account FQL table and
-    // name from the user table; they share an id. Use FQL multiquery to get it all
-    // in one go.
-    NSString *testAccountQuery = [NSString stringWithFormat:
-                                  @"SELECT id,access_token FROM test_account WHERE app_id = %@",
-                                  self.testAppID];
-    NSString *userQuery = @"SELECT uid,name FROM user WHERE uid IN (SELECT id FROM #test_accounts)";
-    NSDictionary *multiquery = [NSDictionary dictionaryWithObjectsAndKeys:
-                                testAccountQuery, @"test_accounts",
-                                userQuery, @"users",
-                                nil];
-
-    NSString *jsonMultiquery = [FBUtility simpleJSONEncode:multiquery];
-
-    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-                                jsonMultiquery, @"q",
-                                self.appAccessToken, @"access_token",
-                                nil];
-    FBRequest *request = [[[FBRequest alloc] initWithSession:nil
-                                                   graphPath:@"fql"
-                                                  parameters:parameters
-                                                  HTTPMethod:nil]
-                          autorelease];
-    [request startWithCompletionHandler:
-     ^(FBRequestConnection *connection, id result, NSError *error) {
-         if (error ||
-             !result) {
-             [self raiseException:error];
-         }
-         id data = [result objectForKey:@"data"];
-         if (![data isKindOfClass:[NSArray class]] ||
-             [data count] != 2) {
-             [self raiseException:nil];
-         }
-
-         // We get back two sets of results. The first is from the test_accounts
-         // query, the second from the users query.
-         id testAccounts = [[data objectAtIndex:0] objectForKey:@"fql_result_set"];
-         id users = [[data objectAtIndex:1] objectForKey:@"fql_result_set"];
-         if (![testAccounts isKindOfClass:[NSArray class]] ||
-             ![users isKindOfClass:[NSArray class]]) {
-             [self raiseException:nil];
-         }
-
-         // Use both sets of results to populate our static array of accounts.
-         [self populateTestUsers:users testAccounts:testAccounts];
-
-         // Now that we've populated all test users, we can continue looking for
-         // the matching user, which started this all off.
-         [self findOrCreateSharedUser];
-     }];
-    
-}
-*/
-
-- (FBRequest*)requestForLoadData
-{
-    if (!self.activePriority) {
-        self.activePriority = [NSNumber numberWithInt:FRIEND_DEFAULT_PRIORITY];
-    }
-    // Respect user settings in case they have changed.
-    NSMutableArray *sortFields = [NSMutableArray array];
-    NSString *groupByField = nil;
-    if (self.sortOrdering == FBFriendSortByFirstName) {
-        [sortFields addObject:@"first_name"];
-        [sortFields addObject:@"middle_name"];
-        [sortFields addObject:@"last_name"];
-        groupByField = @"first_name";
-    } else {
-        [sortFields addObject:@"last_name"];
-        [sortFields addObject:@"first_name"];
-        [sortFields addObject:@"middle_name"];
-        groupByField = @"last_name";
-    }
-    FBGraphObjectTableDataSource *dataSource = [(id)self dataSource];
-//    [self.dataSource setSortingByFields:sortFields ascending:YES];
-//    self.dataSource.groupByField = groupByField;
-//    self.dataSource.useCollation = YES;
-
-    // me or one of my friends that also uses the app
-    NSString *user = self.userID;
-    if (!user) {
-        user = @"me";
-    }
-
-    // create the request and start the loader
-    FBRequest *request = [FriendsViewController requestWithUserID:user
-                                                           fields:self.fieldsForRequest
-                                                       dataSource:dataSource
-                                                          session:self.session];
-    return request;
-}
-
-+ (FBRequest*)requestWithUserID:(NSString*)userID
-                         fields:(NSSet*)fields
-                     dataSource:(FBGraphObjectTableDataSource*)datasource
-                        session:(FBSession*)session
-{
-    FBRequest *request = [FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@/friends", userID]];
-    [request setSession:session];
-
-    NSString *allFields = [datasource fieldsForRequestIncluding:fields,
-                           @"id",
-                           @"name",
-                           @"first_name",
-                           @"middle_name",
-                           @"last_name",
-                           @"picture",
-                           nil];
-    [request.parameters setObject:allFields forKey:@"fields"];
-
-
-//    NSString *testAccountQuery = [NSString stringWithFormat:
-//                                  @"SELECT id,access_token FROM test_account WHERE app_id = %@",
-//                                  self.testAppID];
-//    NSString *userQuery = @"SELECT uid,name FROM user WHERE uid IN (SELECT id FROM #test_accounts)";
-//    NSDictionary *multiquery = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                testAccountQuery, @"test_accounts",
-//                                userQuery, @"users",
-//                                nil];
-//
-//    NSString *jsonMultiquery = [FBUtility simpleJSONEncode:multiquery];
-//
-//    NSDictionary *parameters = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                jsonMultiquery, @"q",
-//                                self.appAccessToken, @"access_token",
-//                                nil];
-//    FBRequest *request = [[[FBRequest alloc] initWithSession:nil
-//                                                   graphPath:@"fql"
-//                                                  parameters:parameters
-//                                                  HTTPMethod:nil]
-
-    return request;
 }
 
 - (NSManagedObjectContext *)managedObjectContext
@@ -265,6 +141,147 @@
     }
 
     return [NSSet setWithArray:fetchedObjects];
+}
+
+- (NSArray *)friends
+{
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (error) {
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+    }
+
+    return fetchedObjects;
+}
+
+- (void)loadSavedData
+{
+
+}
+
+//- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker shouldIncludeUser:(id<FBGraphUser>)user
+//{
+//    NSManagedObjectContext *context = self.managedObjectContext;
+//    Friend *friend = [NSEntityDescription
+//                      insertNewObjectForEntityForName:@"Friend"
+//                      inManagedObjectContext:context];
+//    friend.uid = user.id;
+//    friend.priority = FRIEND_DEFAULT_PRIORITY;
+//    friend.firstName = user.first_name;
+//    friend.lastName = user.last_name;
+//    friend.avatarUrl = user[@"picture"];
+//    return YES;
+//}
+
+- (void)saveContext
+{
+    [(DataTabBarController *)self.parentViewController saveContext];
+}
+
+//- (void)pagingLoaderDidFinishLoading:(FBGraphObjectPagingLoader *)pagingLoader
+//{
+//    if ([super respondsToSelector:@selector(pagingLoaderDidFinishLoading:)]) {
+//        [super performSelector:@selector(pagingLoaderDidFinishLoading:) withObject:pagingLoader];
+//    }
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        
+//    });
+//}
+
+- (NSManagedObjectContext *)backgroundManagedObjectContext
+{
+    if (!_backgroundManagedObjectContext) {
+        RLCAppDelegate *app = UIApplication.sharedApplication.delegate;
+        NSPersistentStoreCoordinator *coordinator = [app persistentStoreCoordinator];
+        if (coordinator != nil) {
+            _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] init];
+            [_backgroundManagedObjectContext setPersistentStoreCoordinator:coordinator];
+        }
+    }
+    return _backgroundManagedObjectContext;
+}
+
+- (void)friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker
+{
+    if ([self valueForKeyPath:@"loader.nextLink"]) {
+        return;
+    }
+//    self.dataLoaded = YES;
+    // Save loaded data to database in background
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *cells = [NSMutableArray array];
+        for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j) {
+            for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i) {
+                [cells addObject:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+            }
+        }
+        for (FBGraphObjectTableCell *cell in cells)
+        {
+//            UITextField *textField = [cell textField];
+//            NSLog(@"%@"; [textField text]);
+        }
+
+        NSError *error;
+        if (![self.backgroundManagedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    });
+}
+
+- (FBRequest*)requestForLoadData {
+
+    // Respect user settings in case they have changed.
+    NSMutableArray *sortFields = [NSMutableArray array];
+    [sortFields addObject:@"first_name"];
+    [sortFields addObject:@"middle_name"];
+    [sortFields addObject:@"last_name"];
+    FBGraphObjectTableDataSource *dataSource = (FBGraphObjectTableDataSource *)[(id)self dataSource];
+    [dataSource setSortingByFields:sortFields ascending:YES];
+    dataSource.groupByField = @"priority";
+    dataSource.useCollation = YES;
+
+    // me or one of my friends that also uses the app
+    NSString *user = self.userID;
+    if (!user) {
+        user = @"me";
+    }
+
+    // create the request and start the loader
+    FBRequest *request = [FriendsViewController requestWithUserID:user
+                                                                  fields:self.fieldsForRequest
+                                                              dataSource:dataSource
+                                                                 session:self.session];
+    return request;
+}
+
++ (FBRequest *)requestWithUserID:(NSString*)userID
+                         fields:(NSSet*)fields
+                     dataSource:(FBGraphObjectTableDataSource*)datasource
+                        session:(FBSession*)session {
+
+    FBRequest *request = [FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@/friends", userID]];
+    [request setSession:session];
+
+    // Use field expansion to fetch a 100px wide picture if we're on a retina device.
+    NSString *pictureField = ([FBUtility isRetinaDisplay]) ? @"picture.width(100).height(100)" : @"picture";
+
+    NSString *allFields = [datasource fieldsForRequestIncluding:fields,
+                           @"id",
+                           @"name",
+                           @"first_name",
+                           @"middle_name",
+                           @"last_name",
+                           pictureField,
+                           nil];
+    [request.parameters setObject:allFields forKey:@"fields"];
+
+    return request;
 }
 
 @end
