@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E313C761770BDDF00E5F3AA /* Friend.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C731770BDDF00E5F3AA /* Friend.m */; };
+		3E313C771770BDDF00E5F3AA /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E313C741770BDDF00E5F3AA /* iOSapp.xcdatamodeld */; };
 		3E9FCC21175FBD2500E005E9 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC1C175FBD2500E005E9 /* Contact.m */; };
-		3E9FCC2D175FC7E800E005E9 /* iOSapp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */; };
 		3E9FCC2E175FC7E800E005E9 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E9FCC2C175FC7E800E005E9 /* Person.m */; };
 		3EF5E1B0175E50C70089ECA6 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF5E1AF175E50C70089ECA6 /* CoreData.framework */; };
 		3EF5E1B2175E50C70089ECA6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EF5E1B1175E50C70089ECA6 /* Foundation.framework */; };
@@ -33,9 +34,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E313C721770BDDF00E5F3AA /* Friend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Friend.h; sourceTree = "<group>"; };
+		3E313C731770BDDF00E5F3AA /* Friend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Friend.m; sourceTree = "<group>"; };
+		3E313C751770BDDF00E5F3AA /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
 		3E9FCC1B175FBD2500E005E9 /* Contact.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Contact.h; sourceTree = "<group>"; };
 		3E9FCC1C175FBD2500E005E9 /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
-		3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = iOSapp.xcdatamodel; sourceTree = "<group>"; };
 		3E9FCC2B175FC7E800E005E9 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		3E9FCC2C175FC7E800E005E9 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		3EF5E1AC175E50C70089ECA6 /* preloader */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = preloader; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,7 +95,9 @@
 		3EF5E1B3175E50C70089ECA6 /* preloader */ = {
 			isa = PBXGroup;
 			children = (
-				3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */,
+				3E313C721770BDDF00E5F3AA /* Friend.h */,
+				3E313C731770BDDF00E5F3AA /* Friend.m */,
+				3E313C741770BDDF00E5F3AA /* iOSapp.xcdatamodeld */,
 				3E9FCC2B175FC7E800E005E9 /* Person.h */,
 				3E9FCC2C175FC7E800E005E9 /* Person.m */,
 				3E9FCC1B175FBD2500E005E9 /* Contact.h */,
@@ -166,8 +171,9 @@
 			files = (
 				3EF5E1B5175E50C70089ECA6 /* main.m in Sources */,
 				3E9FCC21175FBD2500E005E9 /* Contact.m in Sources */,
-				3E9FCC2D175FC7E800E005E9 /* iOSapp.xcdatamodeld in Sources */,
 				3E9FCC2E175FC7E800E005E9 /* Person.m in Sources */,
+				3E313C761770BDDF00E5F3AA /* Friend.m in Sources */,
+				3E313C771770BDDF00E5F3AA /* iOSapp.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,12 +281,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3E9FCC29175FC7E800E005E9 /* iOSapp.xcdatamodeld */ = {
+		3E313C741770BDDF00E5F3AA /* iOSapp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */,
+				3E313C751770BDDF00E5F3AA /* iOSapp.xcdatamodel */,
 			);
-			currentVersion = 3E9FCC2A175FC7E800E005E9 /* iOSapp.xcdatamodel */;
+			currentVersion = 3E313C751770BDDF00E5F3AA /* iOSapp.xcdatamodel */;
 			path = iOSapp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

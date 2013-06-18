@@ -8,8 +8,12 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import <AppKit/AppKit.h>
 
+#if TARGET_OS_IPHONE
+#else
+#import <Quartz/Quartz.h>
+#define UIImage NSImage
+#endif
 @class Contact;
 
 @interface Person : NSManagedObject
@@ -17,9 +21,10 @@
 @property (nonatomic, retain) NSString *bio;
 @property (nonatomic, retain) NSDate *birthdate;
 @property (nonatomic, retain) NSString *name;
-@property (nonatomic, retain) NSImage *photo;
+@property (nonatomic, retain) UIImage *photo;
 @property (nonatomic, retain) NSString *surname;
 @property (nonatomic, retain) NSSet *contacts;
+
 @end
 
 @interface Person (CoreDataGeneratedAccessors)
