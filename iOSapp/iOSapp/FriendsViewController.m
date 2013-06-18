@@ -2,40 +2,38 @@
 //  FriendsViewController.m
 //  iOSapp
 //
-//  Created by Evgenij on 6/15/13.
+//  Created by Evgenij on 6/18/13.
 //  Copyright (c) 2013 Home. All rights reserved.
 //
 
 #import "FriendsViewController.h"
 #import "FBRequest.h"
-#import "FBGraphObjectTableDataSource.h"
-#import "Friend.h"
-#import "DataTabBarController.h"
-#import "RLCAppDelegate.h"
-#import "FBGraphObjectPagingLoader.h"
-#import "FBGraphObjectTableCell.h"
-#import "FBGraphObjectTableDataSource+PriorityField.h"
+#import "FBSession.h"
 #import "FBUtility.h"
+#import "FBError.h"
+#import "DataTabBarController.h"
+#import "Friend.h"
+#import "FriendCell.h"
+#import "FBURLConnection.h"
 
-#define FRIEND_DEFAULT_PRIORITY 0
+#define FRIEND_DEFAULT_PRIOTITY 0
+static NSString *defaultImageName = @"FacebookSDKResources.bundle/FBFriendPickerView/images/default.png";
 
 
 @interface FriendsViewController ()
 
+@property (strong, nonatomic) UITableView *tableView;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (strong, nonatomic, readonly) NSManagedObjectContext *managedObjectContext;
-@property (strong, nonatomic, readonly) NSSet *priorities;
-@property (strong, nonatomic) NSNumber *activePriority;
-@property (strong, nonatomic, readonly) NSArray *friends;
-@property (assign, nonatomic) BOOL dataLoaded;
-@property (strong, atomic, readonly) NSManagedObjectContext *backgroundManagedObjectContext;
+@property (strong, nonatomic) NSArray *friends;
+@property (strong, nonatomic) UIImage *defaultPicture;
 
 @end
 
 
 @implementation FriendsViewController
 
-@synthesize managedObjectContext = _managedObjectContext,
-            backgroundManagedObjectContext = _backgroundManagedObjectContext;
+@synthesize managedObjectContext = _managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -50,8 +48,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.delegate = self;
-    self.allowsMultipleSelection = NO;
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,38 +57,177 @@
     // Dispose of any resources that can be recreated.
 }
 
-// Next code is according to ios-sdk-tutorial/show-friends/
-// Do we really need it?
-- (void)dealloc
+- (UITableView *)tableView
 {
-    self.delegate = nil;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if (self.friends.count == 0) {
-        [self loadData];
-        self.dataLoaded = NO;
-    } else {
-        [self loadSavedData];
+    if (_tableView) {
+        return _tableView;
     }
-    [self clearSelection];
+    _tableView = [[UITableView alloc] initWithFrame:self.view.bounds];
+    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+
+    [self.view addSubview:_tableView];
+    return _tableView;
 }
 
-- (void)friendPickerViewControllerSelectionDidChange:(FBFriendPickerViewController *)friendPicker
+- (UIActivityIndicatorView *)spinner
 {
-    if (friendPicker.selection.count) {
-        id<FBGraphUser> friend = friendPicker.selection[0];
-        UIApplication *app = [UIApplication sharedApplication];
-        NSURL *url;
-        if ([app canOpenURL:[NSURL URLWithString:@"fb://"]]) {
-            url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", friend[@"id"]]];
-        } else {
-            url = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.facebook.com/profile.php?id=%@", friend[@"id"]]];
+    if (_spinner) {
+        return _spinner;
+    }
+    _spinner = [[UIActivityIndicatorView alloc]
+                initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    _spinner.hidesWhenStopped = YES;
+    // We want user to be able to scroll while we load.
+    _spinner.userInteractionEnabled = NO;
+
+    [self.tableView addSubview:_spinner];
+    return _spinner;
+}
+
+- (void)loadData
+{
+    if (self.friends.count) {
+        [self.tableView reloadData];
+        return;
+    }
+
+    FBRequest *request = [FBRequest requestForGraphPath:@"me/friends"];
+    request.session = FBSession.activeSession;
+    NSString *pictureField = ([FBUtility isRetinaDisplay]) ? @"picture.width(100).height(100)" : @"picture";
+    NSArray *fields = [NSArray arrayWithObjects:
+                       @"id",
+                       @"name",
+                       @"first_name",
+                       @"middle_name",
+                       @"last_name",
+                       pictureField,
+                       nil];
+    NSString *allFields = [FriendsViewController fieldsForRequest:fields];
+    [request.parameters setObject:allFields forKey:@"fields"];
+
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        [self requestCompleted:connection result:result error:error];
+    }];
+    [self centerAndStartSpinner];
+}
+
++ (NSString *)fieldsForRequest:(NSArray *)fieldsArray
+{
+    // Start with custom fields.
+    NSMutableSet *nameSet = [NSMutableSet set];
+    for (NSString *name in fieldsArray) {
+        [nameSet addObject:name];
+    }
+
+    // redundant...
+    NSMutableArray *sortedFields = [[nameSet allObjects] mutableCopy];
+    [sortedFields sortUsingSelector:@selector(caseInsensitiveCompare:)];
+
+    // Build the comma-separated string
+    NSMutableString *fields = [[NSMutableString alloc] init];
+
+    for (NSString *field in sortedFields) {
+        if ([fields length]) {
+            [fields appendString:@","];
         }
-        [app openURL:url];
+        [fields appendString:field];
     }
+
+    return fields;
+}
+
+- (void)centerAndStartSpinner
+{
+    [FBUtility centerView:self.spinner tableView:self.tableView];
+    [self.spinner startAnimating];
+}
+
+- (void)requestCompleted:(FBRequestConnection *)connection
+                  result:(id)result
+                   error:(NSError *)error
+{
+    NSDictionary *resultDictionary = (NSDictionary *)result;
+
+    NSArray *data = nil;
+    if (!error && [result isKindOfClass:[NSDictionary class]]) {
+        id rawData = [resultDictionary objectForKey:@"data"];
+        if ([rawData isKindOfClass:[NSArray class]]) {
+            data = (NSArray *)rawData;
+        }
+    }
+
+    if (!error && !data) {
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        userInfo[FBErrorParsedJSONResponseKey] = result;
+        if (FBSession.activeSession) {
+            userInfo[FBErrorSessionKey] = FBSession.activeSession;
+        }
+        error = [[NSError alloc] initWithDomain:FacebookSDKDomain
+                                            code:FBErrorProtocolMismatch
+                                        userInfo:userInfo];
+    }
+
+    if (error) {
+        // Cancellation is not really an error we want to bother the delegate with.
+        BOOL cancelled = [error.domain isEqualToString:FacebookSDKDomain] &&
+        error.code == FBErrorOperationCancelled;
+
+        if (cancelled) {
+            [self.spinner stopAnimating];
+        } else {
+            [self handleError:error];
+        }
+    } else {
+        [self addResultsAndUpdateView:resultDictionary];
+    }
+}
+
+- (void)handleError:(NSError *)error
+{
+    [[[UIAlertView alloc] initWithTitle:@"Error"
+                                message:[error localizedDescription]
+                               delegate:nil
+                      cancelButtonTitle:@"OK"
+                      otherButtonTitles:nil] show];
+}
+
+- (void)addResultsAndUpdateView:(NSDictionary*)results
+{
+    NSArray *data = (NSArray *)[results objectForKey:@"data"];
+
+    [self saveData:data];
+    [self.spinner stopAnimating];
+    [self updateView];
+}
+
+- (void)saveData:(NSArray *)data
+{
+//    NSMutableArray *friends = [NSMutableArray array];
+    for (NSDictionary *obj in data) {
+        Friend *friend = [NSEntityDescription
+                          insertNewObjectForEntityForName:@"Friend"
+                          inManagedObjectContext:self.managedObjectContext];
+        friend.uid = obj[@"id"];
+        friend.firstName = obj[@"first_name"];
+        friend.lastName = obj[@"last_name"];
+        id picture = obj[@"picture"];
+        if ([picture isKindOfClass:[NSString class]]) {
+            friend.avatarUrl = picture;
+        } else {
+            friend.avatarUrl = [[picture objectForKey:@"data"] objectForKey:@"url"];
+        }
+        friend.priority = [NSNumber numberWithInt:FRIEND_DEFAULT_PRIOTITY];
+//        [friends addObject:friend];
+    }
+    [self saveContext];
+//    [friends removeAllObjects];
+}
+
+- (void)saveContext
+{
+    [(DataTabBarController *)self.parentViewController saveContext];
 }
 
 - (NSManagedObjectContext *)managedObjectContext
@@ -103,51 +239,124 @@
     return _managedObjectContext;
 }
 
-- (NSSet *)priorities
+- (void)updateView
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend" inManagedObjectContext:self.managedObjectContext];
-
-    fetchRequest.entity = entity;
-    fetchRequest.propertiesToFetch = [NSArray arrayWithObject:[[entity propertiesByName] objectForKey:@"priority"]];
-    fetchRequest.returnsDistinctResults = YES;
-    fetchRequest.resultType = NSDictionaryResultType;
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
-    }
-
-    return [NSSet setWithArray:fetchedObjects];
+    self.friends = nil;
+    [self.tableView reloadData];
 }
 
-- (NSSet *)friendsWithProirity:(NSNumber *)priority
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend" inManagedObjectContext:self.managedObjectContext];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:
-                              @"priority == %i", priority];
+    return 1;
+}
 
-    [fetchRequest setEntity:entity];
-    [fetchRequest setPredicate:predicate];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return self.friends.count;
+}
 
-    NSError *error = nil;
-    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-    if (error) {
-	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-	    abort();
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    static NSString * const cellKey = @"fbTableCell";
+    FriendCell *cell = (FriendCell*)[tableView dequeueReusableCellWithIdentifier:cellKey];
+
+    if (!cell) {
+        cell = [[FriendCell alloc]
+                initWithStyle:UITableViewCellStyleSubtitle
+                reuseIdentifier:cellKey];
     }
 
-    return [NSSet setWithArray:fetchedObjects];
+    Friend *friend = self.friends[indexPath.row];
+    cell.picture = [self tableView:tableView imageForItem:friend];
+    cell.title = friend.firstName;
+    cell.titleSuffix = friend.lastName;
+    cell.subtitle = nil;
+    cell.priorityField.text = [friend.priority stringValue];
+
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selected = NO;
+
+    cell.boldTitle = YES;
+    cell.boldTitleSuffix = NO;
+
+    cell.controller = self;
+    cell.friend = friend;
+
+    return cell;
+}
+
+/*
+ // Override to support conditional editing of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the specified item to be editable.
+ return YES;
+ }
+ */
+
+/*
+ // Override to support editing the table view.
+ - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ if (editingStyle == UITableViewCellEditingStyleDelete) {
+ // Delete the row from the data source
+ [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+ }
+ else if (editingStyle == UITableViewCellEditingStyleInsert) {
+ // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+ }
+ }
+ */
+
+/*
+ // Override to support rearranging the table view.
+ - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
+ {
+ }
+ */
+
+/*
+ // Override to support conditional rearranging of the table view.
+ - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+ {
+ // Return NO if you do not want the item to be re-orderable.
+ return YES;
+ }
+ */
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Navigation logic may go here. Create and push another view controller.
+    /*
+     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+     [self.navigationController pushViewController:detailViewController animated:YES];
+     */
 }
 
 - (NSArray *)friends
 {
+    if (_friends) {
+        return _friends;
+    }
+    
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Friend" inManagedObjectContext:self.managedObjectContext];
-    [fetchRequest setEntity:entity];
+    fetchRequest.entity = entity;
+
+    NSSortDescriptor *sortByPriority = [[NSSortDescriptor alloc] initWithKey:@"priority" ascending:NO];
+    NSSortDescriptor *sortByFirstName = [[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES];
+    NSSortDescriptor *sortByLastName = [[NSSortDescriptor alloc] initWithKey:@"lastName" ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObjects:
+                                sortByPriority,
+                                sortByFirstName,
+                                sortByLastName, nil];
+    fetchRequest.sortDescriptors = sortDescriptors;
 
     NSError *error = nil;
     NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
@@ -156,132 +365,49 @@
 	    abort();
     }
 
-    return fetchedObjects;
+    _friends = fetchedObjects;
+    return _friends;
 }
 
-- (void)loadSavedData
+- (UIImage *)tableView:(UITableView *)tableView imageForItem:(Friend *)friend
 {
+    __block UIImage *image = nil;
+    NSString *urlString = friend.avatarUrl;
+    if (urlString) {
+        FBURLConnectionHandler handler =
+        ^(FBURLConnection *connection, NSError *error, NSURLResponse *response, NSData *data) {
+            if (!error) {
+                image = [UIImage imageWithData:data];
 
-}
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:[self.friends indexOfObject:friend] inSection:0];
+                if (indexPath) {
+                    FriendCell *cell = (FriendCell *)[tableView cellForRowAtIndexPath:indexPath];
 
-//- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker shouldIncludeUser:(id<FBGraphUser>)user
-//{
-//    NSManagedObjectContext *context = self.managedObjectContext;
-//    Friend *friend = [NSEntityDescription
-//                      insertNewObjectForEntityForName:@"Friend"
-//                      inManagedObjectContext:context];
-//    friend.uid = user.id;
-//    friend.priority = FRIEND_DEFAULT_PRIORITY;
-//    friend.firstName = user.first_name;
-//    friend.lastName = user.last_name;
-//    friend.avatarUrl = user[@"picture"];
-//    return YES;
-//}
-
-- (void)saveContext
-{
-    [(DataTabBarController *)self.parentViewController saveContext];
-}
-
-//- (void)pagingLoaderDidFinishLoading:(FBGraphObjectPagingLoader *)pagingLoader
-//{
-//    if ([super respondsToSelector:@selector(pagingLoaderDidFinishLoading:)]) {
-//        [super performSelector:@selector(pagingLoaderDidFinishLoading:) withObject:pagingLoader];
-//    }
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//        
-//    });
-//}
-
-- (NSManagedObjectContext *)backgroundManagedObjectContext
-{
-    if (!_backgroundManagedObjectContext) {
-        RLCAppDelegate *app = UIApplication.sharedApplication.delegate;
-        NSPersistentStoreCoordinator *coordinator = [app persistentStoreCoordinator];
-        if (coordinator != nil) {
-            _backgroundManagedObjectContext = [[NSManagedObjectContext alloc] init];
-            [_backgroundManagedObjectContext setPersistentStoreCoordinator:coordinator];
-        }
-    }
-    return _backgroundManagedObjectContext;
-}
-
-- (void)friendPickerViewControllerDataDidChange:(FBFriendPickerViewController *)friendPicker
-{
-    if ([self valueForKeyPath:@"loader.nextLink"]) {
-        return;
-    }
-//    self.dataLoaded = YES;
-    // Save loaded data to database in background
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *cells = [NSMutableArray array];
-        for (NSInteger j = 0; j < [self.tableView numberOfSections]; ++j) {
-            for (NSInteger i = 0; i < [self.tableView numberOfRowsInSection:j]; ++i) {
-                [cells addObject:[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:j]]];
+                    if (cell) {
+                        cell.picture = image;
+                    }
+                }
             }
-        }
-        for (FBGraphObjectTableCell *cell in cells)
-        {
-//            UITextField *textField = [cell textField];
-//            NSLog(@"%@"; [textField text]);
-        }
+        };
 
-        NSError *error;
-        if (![self.backgroundManagedObjectContext save:&error]) {
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    });
-}
-
-- (FBRequest*)requestForLoadData {
-
-    // Respect user settings in case they have changed.
-    NSMutableArray *sortFields = [NSMutableArray array];
-    [sortFields addObject:@"first_name"];
-    [sortFields addObject:@"middle_name"];
-    [sortFields addObject:@"last_name"];
-    FBGraphObjectTableDataSource *dataSource = (FBGraphObjectTableDataSource *)[(id)self dataSource];
-    [dataSource setSortingByFields:sortFields ascending:YES];
-    dataSource.groupByField = @"priority";
-    dataSource.useCollation = YES;
-
-    // me or one of my friends that also uses the app
-    NSString *user = self.userID;
-    if (!user) {
-        user = @"me";
+        FBURLConnection *connection = [[FBURLConnection alloc]
+                                        initWithURL:[NSURL URLWithString:urlString]
+                                        completionHandler:handler];
     }
 
-    // create the request and start the loader
-    FBRequest *request = [FriendsViewController requestWithUserID:user
-                                                                  fields:self.fieldsForRequest
-                                                              dataSource:dataSource
-                                                                 session:self.session];
-    return request;
+    if (image) {
+        return image;
+    }
+
+    return self.defaultPicture;
 }
 
-+ (FBRequest *)requestWithUserID:(NSString*)userID
-                         fields:(NSSet*)fields
-                     dataSource:(FBGraphObjectTableDataSource*)datasource
-                        session:(FBSession*)session {
-
-    FBRequest *request = [FBRequest requestForGraphPath:[NSString stringWithFormat:@"%@/friends", userID]];
-    [request setSession:session];
-
-    // Use field expansion to fetch a 100px wide picture if we're on a retina device.
-    NSString *pictureField = ([FBUtility isRetinaDisplay]) ? @"picture.width(100).height(100)" : @"picture";
-
-    NSString *allFields = [datasource fieldsForRequestIncluding:fields,
-                           @"id",
-                           @"name",
-                           @"first_name",
-                           @"middle_name",
-                           @"last_name",
-                           pictureField,
-                           nil];
-    [request.parameters setObject:allFields forKey:@"fields"];
-
-    return request;
+- (UIImage *)defaultPicture
+{
+    if (!_defaultPicture) {
+        _defaultPicture = [UIImage imageNamed:defaultImageName];
+    }
+    return _defaultPicture;
 }
 
 @end
