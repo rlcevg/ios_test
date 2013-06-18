@@ -16,5 +16,6 @@
 @property (weak, nonatomic) FriendsViewController *controller;
 @property (weak, nonatomic) UITextField *priorityField;
 @property (weak, nonatomic) Friend *friend;
+@property (assign, nonatomic) NSInteger index;
 
 @end

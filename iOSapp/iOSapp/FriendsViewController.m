@@ -57,6 +57,42 @@ static NSString *defaultImageName = @"FacebookSDKResources.bundle/FBFriendPicker
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)keyboardWasShown:(NSNotification*)aNotification
+{
+    NSDictionary* info = [aNotification userInfo];
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+
+    UIEdgeInsets contentInsets = UIEdgeInsetsMake(0.0, 0.0, kbSize.height, 0.0);
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.index inSection:0];
+    [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+}
+
+- (void)keyboardWillBeHidden:(NSNotification*)aNotification
+{
+    UIEdgeInsets contentInsets = UIEdgeInsetsZero;
+    self.tableView.contentInset = contentInsets;
+    self.tableView.scrollIndicatorInsets = contentInsets;
+}
+
 - (UITableView *)tableView
 {
     if (_tableView) {
@@ -283,6 +319,7 @@ static NSString *defaultImageName = @"FacebookSDKResources.bundle/FBFriendPicker
 
     cell.controller = self;
     cell.friend = friend;
+    cell.index = indexPath.row;
 
     return cell;
 }
@@ -330,13 +367,15 @@ static NSString *defaultImageName = @"FacebookSDKResources.bundle/FBFriendPicker
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    Friend *friend = self.friends[indexPath.row];
+    UIApplication *app = [UIApplication sharedApplication];
+    NSURL *url;
+    if ([app canOpenURL:[NSURL URLWithString:@"fb://"]]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"fb://profile/%@", friend.uid]];
+    } else {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"https://m.facebook.com/profile.php?id=%@", friend.uid]];
+    }
+    [app openURL:url];
 }
 
 - (NSArray *)friends

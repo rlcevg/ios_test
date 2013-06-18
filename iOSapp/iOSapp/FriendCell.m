@@ -27,7 +27,7 @@
         textField.textAlignment = NSTextAlignmentCenter;
         textField.borderStyle = UITextBorderStyleBezel;
         textField.delegate = self;
-//        textField.keyboardType = UIKeyboardTypeNumberPad;
+        textField.keyboardType = UIKeyboardTypeNumberPad;
         self.accessoryView = self.priorityField = textField;
 
         UIToolbar *doneBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 35)];
@@ -62,6 +62,7 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     self.controller.activeField = textField;
+    self.controller.index = self.index;
     self.undoText = textField.text;
 }
 
@@ -95,6 +96,9 @@
 - (void)done:(id)sender
 {
     UITextField *textField = self.controller.activeField;
+    if (textField.text.length == 0) {
+        textField.text = self.undoText;
+    }
     FriendCell *cell = (FriendCell *)self.controller.activeField.superview;
     cell.friend.priority = [NSNumber numberWithInt:[textField.text integerValue]];
     [self.controller saveContext];

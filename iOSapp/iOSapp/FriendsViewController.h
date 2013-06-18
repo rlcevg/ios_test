@@ -11,7 +11,9 @@
 
 @interface FriendsViewController : UIViewController </*FBRequestDelegate, */UITableViewDelegate, UITableViewDataSource>
 
+@property (assign, nonatomic) NSInteger index;
 @property (weak, nonatomic) UITextField *activeField;
+
 - (void)updateView;
 - (void)saveContext;
 
